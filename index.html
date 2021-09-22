@@ -1,0 +1,77 @@
+<!-- //// -->
+<!-- Tile -->
+<!-- //// -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="test.css" />
+  </head>
+  <body>
+    <div class="tile">
+      <!-- Why the extra first and last class when you could use :first-child and :last-child you ask? -->
+      <!-- It's so that I don't have to load a extra JS file to allow Greensock to target pseudo elements. -->
+      <!-- This way is a little uglier but more performant. -->
+      <img alt="" class="tile__img tile__img--first" />
+      <img alt="" class="tile__img tile__img--last" />
+      <!-- img tags don't validate without src tag :(, let's pretend like we didn't see that ;-P... -->
+      <!-- ...because this will be implemented into a static site generator, right? riggght? :X  -->
+
+      <div class="title">
+        &nbsp;<br />&nbsp;
+        <div class="title__container">
+          <div class="title__text title__text--first"></div>
+          <div class="title__text title__text--last"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- /////////// -->
+    <!-- Next button -->
+    <!-- /////////// -->
+
+    <button class="next-tile">
+      <span class="next-tile__details">
+        <span class="next-tile__heading">Up next</span>
+        <span class="next-tile__title">
+          &nbsp; <br />&nbsp;
+          <span
+            class="next-tile__title__text next-tile__title__text--first"
+          ></span>
+          <span
+            class="next-tile__title__text next-tile__title__text--last"
+          ></span>
+        </span>
+        <svg
+          class="next-tile__arrow"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          x="0px"
+          y="0px"
+          viewBox="0 0 42.6 20.1"
+          style="enable-background: new 0 0 42.6 20.1"
+          xml:space="preserve"
+        >
+          <path
+            class="st0"
+            d="M0,8.2h35.5l-5.6-5.6L32.5,0l10.1,10.1L32.5,20.1l-2.6-2.6l5.6-5.6H0V8.2z"
+          />
+        </svg>
+        <div class="test-arrow"></div>
+      </span>
+      <span class="next-tile__preview">
+        <img
+          class="next-tile__preview__img next-tile__preview__img--first"
+          alt=""
+        />
+        <img
+          class="next-tile__preview__img next-tile__preview__img--last"
+          alt=""
+        />
+      </span>
+    </button>
+    <script src="test.js"></script>
+  </body>
+</html>
+
+<!-- content sourced from https://codepen.io/MarioD/pen/OKyVob -->
