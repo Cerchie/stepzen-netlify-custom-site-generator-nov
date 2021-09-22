@@ -1,0 +1,1373 @@
+type Query {
+  """
+     A published article by ID
+     This endpoint allows the client to retrieve a single
+  published article given its `id`.
+  """
+  devto_getArticleById(id: String!): Devto_ArticleShow
+    @rest(
+      endpoint: """
+      https://dev.to/api/articles/$id
+      """
+    )
+  """
+     A published article by path
+     This endpoint allows the client to retrieve a single
+  published article given its `path`.
+  """
+  devto_getArticleByPath(slug: String!, username: String!): Devto_ArticleShow
+    @rest(
+      endpoint: """
+      https://dev.to/api/articles/$username/$slug
+      """
+    )
+  """
+     Published articles
+     This endpoint allows the client to retrieve a list of articles.
+
+  "Articles" are all the posts that users create on DEV that typically
+  show up in the feed. They can be a blog post, a discussion question,
+  a help thread etc. but is referred to as article within the code.
+
+  By default it will return featured, published articles ordered
+  by descending popularity.
+
+  It supports pagination, each page will contain `30` articles by default.
+  """
+  devto_getArticles(
+    """
+          Adding this will allow the client to return the list of articles
+    belonging to the requested collection, ordered by ascending
+    publication date.
+    """
+    collection_id: Int
+    """
+    Pagination page.
+    """
+    page: Int
+    """
+    Page size (the number of items to return per page).
+    """
+    per_page: Int
+    """
+          Using this parameter will allow the client to check which articles are fresh or rising.
+
+    If `state=fresh` the server will return fresh articles.
+    If `state=rising` the server will return rising articles.
+
+    This param can be used in conjuction with `username`, only if set to `all`.
+    """
+    state: String
+    """
+          Using this parameter will retrieve articles that contain the
+    requested tag.
+
+    Articles will be ordered by descending popularity.
+
+    This parameter can be used in conjuction with `top`.
+    """
+    tag: String
+    """
+          Using this parameter will retrieve articles with any of the comma-separated tags.
+
+    Articles will be ordered by descending popularity.
+    """
+    tags: String
+    """
+          Using this parameter will retrieve articles that do _not_ contain _any_ of comma-separated tags.
+
+    Articles will be ordered by descending popularity.
+    """
+    tags_exclude: String
+    """
+          Using this parameter will allow the client to return the most popular articles
+    in the last `N` days.
+
+    `top` indicates the number of days since publication of the articles
+    returned.
+
+    This param can be used in conjuction with `tag`.
+    """
+    top: Int
+    """
+          Using this parameter will retrieve articles belonging
+    to a User or Organization ordered by descending publication date.
+
+    If `state=all` the number of items returned will be `1000` instead of the default `30`.
+
+    This parameter can be used in conjuction with `state`.
+    """
+    username: String
+  ): Devto_getArticlesResponse
+    @rest(
+      endpoint: """
+      https://dev.to/api/articles
+      """
+    )
+  """
+     Articles with a video
+     This endpoint allows the client to retrieve a list of articles
+  that are uploaded with a video.
+
+  It will only return published video articles
+  ordered by descending popularity.
+
+  It supports pagination, each page will contain `24` articles by default.
+  """
+  devto_getArticlesWithVideo(
+    """
+    Pagination page.
+    """
+    page: Int
+    """
+    Page size (the number of items to return per page).
+    """
+    per_page: Int
+  ): Devto_getArticlesWithVideoResponse
+    @rest(
+      endpoint: """
+      https://dev.to/api/videos
+      """
+    )
+  """
+     Comment
+     This endpoint allows the client to retrieve a comment as well as his
+  descendants comments.
+
+  It will return the required comment (the root) with its nested
+  descendants as a thread.
+
+  See the format specification for further details.
+  """
+  devto_getCommentById(
+    """
+    Comment identifier.
+    """
+    id: String!
+  ): Devto_DevToComment
+    @rest(
+      endpoint: """
+      https://dev.to/api/comments/$id
+      """
+    )
+  """
+     Comments
+     This endpoint allows the client to retrieve all comments belonging to an
+  article or podcast episode as threaded conversations.
+
+  It will return the all top level comments with their nested comments as
+  threads. See the format specification for further details.
+  """
+  devto_getCommentsByArticleId(
+    """
+    Article identifier.
+    """
+    a_id: Int
+    """
+    Podcast Episode identifier.
+    """
+    p_id: Int
+  ): Devto_getCommentsByArticleIdResponse
+    @rest(
+      endpoint: """
+      https://dev.to/api/comments
+      """
+    )
+  """
+     Followed tags
+     This endpoint allows the client to retrieve a list of the tags
+  they follow.
+  """
+  devto_getFollowedTags: Devto_getFollowedTagsResponse
+    @rest(
+      endpoint: """
+      https://dev.to/api/follows/tags
+      """
+    )
+  """
+     Followers
+     This endpoint allows the client to retrieve a list of the followers
+  they have.
+
+  "Followers" are users that are following other users on the website.
+
+  It supports pagination, each page will contain `80` followers by default.
+  """
+  devto_getFollowers(
+    """
+    Pagination page.
+    """
+    page: Int
+    """
+    Page size (the number of items to return per page).
+    """
+    per_page: Int
+    """
+          Specifies the sort order for the `created_at` param of the follow
+    relationship. To sort by newest followers first (descending order)
+    specify `?sort=-created_at`.
+    """
+    sort: String
+  ): Devto_getFollowersResponse
+    @rest(
+      endpoint: """
+      https://dev.to/api/followers/users
+      """
+    )
+  """
+     Published articles sorted by publish date
+     This endpoint allows the client to retrieve a list of articles.
+  ordered by descending publish date.
+
+  It supports pagination, each page will contain `30` articles by default.
+  """
+  devto_getLatestArticles(
+    """
+    Pagination page.
+    """
+    page: Int
+    """
+    Page size (the number of items to return per page).
+    """
+    per_page: Int
+  ): Devto_getLatestArticlesResponse
+    @rest(
+      endpoint: """
+      https://dev.to/api/articles/latest
+      """
+    )
+  """
+     A listing
+     This endpoint allows the client to retrieve
+  a single listing given its `id`.
+
+  An unpublished listing is only accessible if authentication is supplied
+  and it belongs to the authenticated user.
+  """
+  devto_getListingById(id: String!): Devto_Listing
+    @rest(
+      endpoint: """
+      https://dev.to/api/listings/$id
+      """
+    )
+  """
+     Published listings
+     This endpoint allows the client to retrieve a list of listings.
+
+  "Listings" are classified ads that users create on DEV.
+  They can be related to conference announcements, job offers, mentorships,
+  upcoming events and more.
+
+  By default it will return published listings ordered by descending
+  freshness.
+
+  It supports pagination, each page will contain `30` articles by default.
+  """
+  devto_getListings(
+    """
+          Using this parameter will return listings belonging to the
+    requested category.
+    """
+    category: String
+    """
+    Pagination page.
+    """
+    page: Int
+    """
+    Page size (the number of items to return per page).
+    """
+    per_page: Int
+  ): Devto_getListingsResponse
+    @rest(
+      endpoint: """
+      https://dev.to/api/listings
+      """
+    )
+  """
+     Published listings by category
+     This endpoint allows the client to retrieve a list of listings belonging
+  to the specified category.
+
+  "Listings" are classified ads that users create on DEV.
+  They can be related to conference announcements, job offers, mentorships,
+  upcoming events and more.
+
+  By default it will return published listings ordered by descending
+  freshness.
+
+  It supports pagination, each page will contain `30` articles by default.
+  """
+  devto_getListingsByCategory(
+    """
+    The category of the listing
+    """
+    category: String!
+    """
+    Pagination page.
+    """
+    page: Int
+    """
+    Page size (the number of items to return per page).
+    """
+    per_page: Int
+  ): Devto_getListingsByCategoryResponse
+    @rest(
+      endpoint: """
+      https://dev.to/api/listings/category/$category
+      """
+    )
+  """
+     Organization's Articles
+     This endpoint allows the client to retrieve a list of Articles belonging to the organization
+
+  It supports pagination, each page will contain `30` listing by default.
+  """
+  devto_getOrgArticles(
+    """
+    Pagination page.
+    """
+    page: Int
+    """
+    Page size (the number of items to return per page).
+    """
+    per_page: Int
+    """
+    Username of the organization
+    """
+    username: String!
+  ): Devto_getOrgArticlesResponse
+    @rest(
+      endpoint: """
+      https://dev.to/api/organizations/$username/articles
+      """
+    )
+  """
+     Organization's listings
+     This endpoint allows the client to retrieve a list of listings belonging to the organization
+
+  It supports pagination, each page will contain `30` listing by default.
+  """
+  devto_getOrgListings(
+    """
+          Using this parameter will return listings belonging to the
+    requested category.
+    """
+    category: String
+    """
+    Pagination page.
+    """
+    page: Int
+    """
+    Page size (the number of items to return per page).
+    """
+    per_page: Int
+    """
+    Username of the organization
+    """
+    username: String!
+  ): Devto_getOrgListingsResponse
+    @rest(
+      endpoint: """
+      https://dev.to/api/organizations/$username/listings
+      """
+    )
+  """
+     Organization's users
+     This endpoint allows the client to retrieve a list of users belonging to the organization
+
+  It supports pagination, each page will contain `30` users by default.
+  """
+  devto_getOrgUsers(
+    """
+    Pagination page.
+    """
+    page: Int
+    """
+    Page size (the number of items to return per page).
+    """
+    per_page: Int
+    """
+    Username of the organization
+    """
+    username: String!
+  ): Devto_getOrgUsersResponse
+    @rest(
+      endpoint: """
+      https://dev.to/api/organizations/$username/users
+      """
+    )
+  """
+  An organization
+  This endpoint allows the client to retrieve a single organization by their username
+  """
+  devto_getOrganization(
+    """
+    Username of the organization
+    """
+    username: String!
+  ): Devto_DevToOrganization
+    @rest(
+      endpoint: """
+      https://dev.to/api/organizations/$username
+      """
+    )
+  """
+     Published podcast episodes
+     This endpoint allows the client to retrieve a list of podcast episodes.
+
+  "Podcast episodes" are episodes belonging to podcasts.
+
+  It will only return active podcast episodes that belong to published
+  podcasts available on the platform,
+  ordered by descending publication date.
+
+  It supports pagination, each page will contain `30` articles by default.
+  """
+  devto_getPodcastEpisodes(
+    """
+    Pagination page.
+    """
+    page: Int
+    """
+    Page size (the number of items to return per page).
+    """
+    per_page: Int
+    """
+          Using this parameter will retrieve episodes belonging
+    to a specific podcast.
+    """
+    username: String
+  ): Devto_getPodcastEpisodesResponse
+    @rest(
+      endpoint: """
+      https://dev.to/api/podcast_episodes
+      """
+    )
+  """
+     User or organization profile picture
+     This endpoint allows the client to retrieve a user or organization
+  profile image information by its corresponding username
+  """
+  devto_getProfileImage(
+    """
+    Username of the user or organization
+    """
+    username: String!
+  ): Devto_ProfileImage
+    @rest(
+      endpoint: """
+      https://dev.to/api/profile_images/$username
+      """
+    )
+  """
+     User's reading list
+     This endpoint allows the client to retrieve a list of readinglist reactions along with the related article for the authenticated user.
+
+  Reading list will be in reverse chronological order base
+  on the creation of the reaction.
+
+  It will return paginated reading list items along with the articles
+  they refer to. By default a page will contain `30` items
+  """
+  devto_getReadinglist(
+    """
+    Pagination page.
+    """
+    page: Int
+    """
+    Page size (the number of items to return per page).
+    """
+    per_page: Int
+  ): Devto_getReadinglistResponse
+    @rest(
+      endpoint: """
+      https://dev.to/api/readinglist
+      """
+    )
+  """
+     Tags
+     This endpoint allows the client to retrieve a list of tags
+  that can be used to tag articles.
+
+  It will return tags ordered by popularity.
+
+  It supports pagination, each page will contain `10` tags by default.
+  """
+  devto_getTags(
+    """
+    Pagination page.
+    """
+    page: Int
+    """
+    Page size (the number of items to return per page).
+    """
+    per_page: Int
+  ): Devto_getTagsResponse
+    @rest(
+      endpoint: """
+      https://dev.to/api/tags
+      """
+    )
+  """
+     A user
+     This endpoint allows the client to retrieve a single user, either by
+  id or by the user's username
+  """
+  devto_getUser(
+    """
+          Id of the user.
+
+    It can be either of the following two values:
+
+      - an integer representing the id of the user
+      - the string `by_username` (needs to be used in conjuction with the param `url`)
+    """
+    id: String!
+    """
+    Username of the user
+    """
+    url: String
+  ): Devto_DevToUser
+    @rest(
+      endpoint: """
+      https://dev.to/api/users/$id
+      """
+    )
+  """
+     User's all articles
+     This endpoint allows the client to retrieve a list of all articles on
+  behalf of an authenticated user.
+
+  "Articles" are all the posts that users create on DEV that typically
+  show up in the feed. They can be a blog post, a discussion question,
+  a help thread etc. but is referred to as article within the code.
+
+  It will return both published and unpublished articles with pagination.
+
+  Unpublished articles will be at the top of the list in reverse chronological creation order.
+  Published articles will follow in reverse chronological publication order.
+
+  By default a page will contain `30` articles.
+  """
+  devto_getUserAllArticles(
+    """
+    Pagination page.
+    """
+    page: Int
+    """
+    Page size (the number of items to return per page).
+    """
+    per_page: Int
+  ): Devto_getUserAllArticlesResponse
+    @rest(
+      endpoint: """
+      https://dev.to/api/articles/me/all
+      """
+    )
+  """
+     User's articles
+     This endpoint allows the client to retrieve a list of published articles
+  on behalf of an authenticated user.
+
+  "Articles" are all the posts that users create on DEV that typically
+  show up in the feed. They can be a blog post, a discussion question,
+  a help thread etc. but is referred to as article within the code.
+
+  Published articles will be in reverse chronological publication order.
+
+  It will return published articles with pagination.
+  By default a page will contain `30` articles.
+  """
+  devto_getUserArticles(
+    """
+    Pagination page.
+    """
+    page: Int
+    """
+    Page size (the number of items to return per page).
+    """
+    per_page: Int
+  ): Devto_getUserArticlesResponse
+    @rest(
+      endpoint: """
+      https://dev.to/api/articles/me
+      """
+    )
+  """
+     The authenticated user
+     This endpoint allows the client to retrieve information
+  about the authenticated user
+  """
+  devto_getUserMe: Devto_DevToUser
+    @rest(
+      endpoint: """
+      https://dev.to/api/users/me
+      """
+    )
+  """
+     User's published articles
+     This endpoint allows the client to retrieve a list of published articles
+  on behalf of an authenticated user.
+
+  "Articles" are all the posts that users create on DEV that typically
+  show up in the feed. They can be a blog post, a discussion question,
+  a help thread etc. but is referred to as article within the code.
+
+  Published articles will be in reverse chronological publication order.
+
+  It will return published articles with pagination.
+  By default a page will contain `30` articles.
+  """
+  devto_getUserPublishedArticles(
+    """
+    Pagination page.
+    """
+    page: Int
+    """
+    Page size (the number of items to return per page).
+    """
+    per_page: Int
+  ): Devto_getUserPublishedArticlesResponse
+    @rest(
+      endpoint: """
+      https://dev.to/api/articles/me/published
+      """
+    )
+  """
+     User's unpublished articles
+     This endpoint allows the client to retrieve a list of unpublished articles
+  on behalf of an authenticated user.
+
+  "Articles" are all the posts that users create on DEV that typically
+  show up in the feed. They can be a blog post, a discussion question,
+  a help thread etc. but is referred to as article within the code.
+
+  Unpublished articles will be in reverse chronological creation order.
+
+  It will return unpublished articles with pagination.
+  By default a page will contain `30` articles.
+  """
+  devto_getUserUnpublishedArticles(
+    """
+    Pagination page.
+    """
+    page: Int
+    """
+    Page size (the number of items to return per page).
+    """
+    per_page: Int
+  ): Devto_getUserUnpublishedArticlesResponse
+    @rest(
+      endpoint: """
+      https://dev.to/api/articles/me/unpublished
+      """
+    )
+  """
+     A webhook endpoint
+     This endpoint allows the client to retrieve a single
+  webhook given its `id`.
+  """
+  devto_getWebhookById(id: String!): Devto_WebhookShow
+    @rest(
+      endpoint: """
+      https://dev.to/api/webhooks/$id
+      """
+    )
+  """
+     Webhooks
+     This endpoint allows the client to retrieve a list of webhooks they have
+  previously registered.
+
+  "Webhooks" are used to register HTTP endpoints that will be called once a relevant event is
+  triggered inside the web application, events like `article_created`, `article_updated`.
+
+  It will return all webhooks, without pagination.
+  """
+  devto_getWebhooks: Devto_getWebhooksResponse
+    @rest(
+      endpoint: """
+      https://dev.to/api/webhooks
+      """
+    )
+}
+
+type Devto_APIError {
+  error: String!
+  status: Int!
+}
+
+type Devto_ArticleCreate {
+  article: Devto_ArticleCreateArticle
+}
+
+type Devto_ArticleCreateArticle {
+  body_markdown: String
+  canonical_url: String
+  description: String
+  main_image: String
+  organization_id: Int
+  published: Boolean
+  series: String
+  tags: JSON
+  title: String
+}
+
+"""
+Flare tag of the article
+"""
+type Devto_ArticleFlareTag {
+  bg_color_hex: String
+  name: String
+  text_color_hex: String
+}
+
+type Devto_ArticleIndex {
+  canonical_url: String!
+  comments_count: Int!
+  cover_image: String!
+  created_at: String!
+  crossposted_at: String!
+  description: String!
+  edited_at: String!
+  flare_tag: Devto_ArticleFlareTag
+  id: Int!
+  last_comment_at: String!
+  organization: Devto_SharedOrganization
+  path: String!
+  positive_reactions_count: Int!
+  public_reactions_count: Int!
+  published_at: String!
+  published_timestamp: String!
+  readable_publish_date: String!
+  reading_time_minutes: Int!
+  slug: String!
+  social_image: String!
+  tag_list: JSON
+  tags: String!
+  title: String!
+  type_of: String!
+  url: String!
+  user: Devto_SharedUser!
+}
+
+type Devto_ArticleMe {
+  body_markdown: String!
+  canonical_url: String!
+  comments_count: Int!
+  cover_image: String!
+  description: String!
+  flare_tag: Devto_ArticleFlareTag
+  id: Int!
+  organization: Devto_SharedOrganization
+  page_views_count: Int!
+  path: String!
+  positive_reactions_count: Int!
+  public_reactions_count: Int!
+  published: Boolean!
+  published_at: String!
+  published_timestamp: String!
+  reading_time_minutes: Int!
+  slug: String!
+  tag_list: JSON
+  title: String!
+  type_of: String!
+  url: String!
+  user: Devto_SharedUser!
+}
+
+type Devto_ArticleShow {
+  body_html: String!
+  body_markdown: String!
+  canonical_url: String!
+  comments_count: Int!
+  cover_image: String!
+  created_at: String!
+  crossposted_at: String!
+  description: String!
+  edited_at: String!
+  flare_tag: Devto_ArticleFlareTag
+  id: Int!
+  last_comment_at: String!
+  organization: Devto_SharedOrganization
+  path: String!
+  positive_reactions_count: Int!
+  public_reactions_count: Int!
+  published_at: String!
+  published_timestamp: String!
+  readable_publish_date: String!
+  reading_time_minutes: Int!
+  slug: String!
+  social_image: String!
+  tag_list: String!
+  tags: JSON
+  title: String!
+  type_of: String!
+  url: String!
+  user: Devto_SharedUser!
+}
+
+type Devto_ArticleUpdate {
+  article: Devto_ArticleUpdateArticle
+}
+
+type Devto_ArticleUpdateArticle {
+  body_markdown: String
+  canonical_url: String
+  description: String
+  main_image: String
+  organization_id: Int
+  published: Boolean
+  series: String
+  tags: JSON
+  title: String
+}
+
+type Devto_ArticleVideo {
+  cloudinary_video_url: String!
+  id: Int!
+  path: String!
+  title: String!
+  type_of: String!
+  user: Devto_ArticleVideoUser!
+  user_id: Int!
+  video_duration_in_minutes: String!
+  video_source_url: String!
+}
+
+type Devto_ArticleVideoUser {
+  name: String
+}
+
+type Devto_DevToComment {
+  body_html: String!
+  children: [Devto_DevToComment!]
+  created_at: String!
+  id_code: String!
+  type_of: String!
+  user: Devto_SharedUser!
+}
+
+type Devto_FollowedTag {
+  id: Int!
+  name: String!
+  points: Float!
+}
+
+type Devto_Follower {
+  created_at: String!
+  id: Int!
+  name: String!
+  path: String!
+  profile_image: String!
+  type_of: String!
+  username: String!
+}
+
+type Devto_GetArticlesWithVideoUser {
+  name: String
+}
+
+type Devto_GetPodcastEpisodesPodcast {
+  image_url: String
+  slug: String
+  title: String
+}
+
+type Devto_Listing {
+  body_markdown: String!
+  category: String!
+  id: Int!
+  organization: Devto_SharedOrganization
+  processed_html: String!
+  published: Boolean!
+  slug: String!
+  tag_list: String!
+  tags: JSON
+  title: String!
+  type_of: String!
+  user: Devto_SharedUser!
+}
+
+type Devto_ListingCreate {
+  listing: Devto_ListingCreateListing
+}
+
+type Devto_ListingCreateListing {
+  action: String
+  body_markdown: String!
+  category: String!
+  contact_via_connect: Boolean
+  expires_at: String
+  location: String
+  organization_id: Int
+  tag_list: String
+  tags: JSON
+  title: String!
+}
+
+type Devto_ListingUpdate {
+  listing: Devto_ListingUpdateListing
+}
+
+type Devto_ListingUpdateListing {
+  action: String
+  body_markdown: String
+  category: String
+  contact_via_connect: Boolean
+  expires_at: String
+  location: String
+  tag_list: String
+  tags: JSON
+  title: String
+}
+
+"""
+Organization
+"""
+type Devto_DevToOrganization {
+  github_username: String
+  joined_at: String
+  location: String
+  name: String
+  profile_image: String
+  story: String
+  summary: String
+  tag_line: String
+  tech_stack: String
+  twitter_username: String
+  type_of: String
+  url: String
+  username: String
+}
+
+type Devto_PodcastEpisode {
+  id: Int!
+  image_url: String!
+  path: String!
+  podcast: Devto_PodcastEpisodePodcast!
+  title: String!
+  type_of: String!
+}
+
+type Devto_PodcastEpisodePodcast {
+  image_url: String
+  slug: String
+  title: String
+}
+
+"""
+Profile image
+"""
+type Devto_ProfileImage {
+  image_of: String
+  profile_image: String
+  profile_image_90: String
+  type_of: String
+}
+
+type Devto_ReadingList {
+  article: Devto_ArticleIndex!
+  created_at: String!
+  id: Int!
+  status: String!
+  type_of: String!
+}
+
+"""
+The organization the resource belongs to
+"""
+type Devto_SharedOrganization {
+  name: String
+  profile_image: String
+  profile_image_90: String
+  slug: String
+  username: String
+}
+
+"""
+The resource creator
+"""
+type Devto_SharedUser {
+  github_username: String
+  name: String
+  profile_image: String
+  profile_image_90: String
+  twitter_username: String
+  username: String
+  website_url: String
+}
+
+type Devto_DevToTag {
+  bg_color_hex: String!
+  id: Int!
+  name: String!
+  text_color_hex: String!
+}
+
+type Devto_DevToUser {
+  github_username: String!
+  id: Int!
+  joined_at: String!
+  location: String!
+  name: String!
+  profile_image: String!
+  summary: String!
+  twitter_username: String!
+  type_of: String!
+  username: String!
+  website_url: String!
+}
+
+"""
+Webhook creation payload
+"""
+type Devto_WebhookCreate {
+  webhook_endpoint: Devto_WebhookCreateWebhook_endpoint
+}
+
+type Devto_WebhookCreateWebhook_endpoint {
+  events: JSON
+  source: String!
+  target_url: String!
+}
+
+"""
+Webhook
+"""
+type Devto_WebhookIndex {
+  created_at: String
+  events: JSON
+  id: Int
+  source: String
+  target_url: String
+  type_of: String
+}
+
+"""
+Webhook
+"""
+type Devto_WebhookShow {
+  created_at: String
+  events: JSON
+  id: Int
+  source: String
+  target_url: String
+  type_of: String
+  user: Devto_SharedUser
+}
+
+type Devto_getArticlesResponse {
+  canonical_url: String!
+  comments_count: Int!
+  cover_image: String!
+  created_at: String!
+  crossposted_at: String!
+  description: String!
+  edited_at: String!
+  flare_tag: Devto_ArticleFlareTag
+  id: Int!
+  last_comment_at: String!
+  organization: Devto_SharedOrganization
+  path: String!
+  positive_reactions_count: Int!
+  public_reactions_count: Int!
+  published_at: String!
+  published_timestamp: String!
+  readable_publish_date: String!
+  reading_time_minutes: Int!
+  slug: String!
+  social_image: String!
+  tags: String!
+  tag_list: JSON
+  title: String!
+  type_of: String!
+  url: String!
+  user: Devto_SharedUser!
+}
+
+type Devto_getArticlesWithVideoResponse {
+  cloudinary_video_url: String!
+  id: Int!
+  path: String!
+  title: String!
+  type_of: String!
+  user: Devto_GetArticlesWithVideoUser!
+  user_id: Int!
+  video_duration_in_minutes: String!
+  video_source_url: String!
+}
+
+type Devto_getCommentsByArticleIdResponse {
+  body_html: String!
+  children: [Devto_DevToComment!]
+  created_at: String!
+  id_code: String!
+  type_of: String!
+  user: Devto_SharedUser!
+}
+
+type Devto_getFollowedTagsResponse {
+  id: Int!
+  name: String!
+  points: Float!
+}
+
+type Devto_getFollowersResponse {
+  created_at: String!
+  id: Int!
+  name: String!
+  path: String!
+  profile_image: String!
+  type_of: String!
+  username: String!
+}
+
+type Devto_getLatestArticlesResponse {
+  canonical_url: String!
+  comments_count: Int!
+  cover_image: String!
+  created_at: String!
+  crossposted_at: String!
+  description: String!
+  edited_at: String!
+  flare_tag: Devto_ArticleFlareTag
+  id: Int!
+  last_comment_at: String!
+  organization: Devto_SharedOrganization
+  path: String!
+  positive_reactions_count: Int!
+  public_reactions_count: Int!
+  published_at: String!
+  published_timestamp: String!
+  readable_publish_date: String!
+  reading_time_minutes: Int!
+  slug: String!
+  social_image: String!
+  tag_list: JSON
+  tags: String!
+  title: String!
+  type_of: String!
+  url: String!
+  user: Devto_SharedUser!
+}
+
+type Devto_getListingsByCategoryResponse {
+  body_markdown: String!
+  category: String!
+  id: Int!
+  organization: Devto_SharedOrganization
+  processed_html: String!
+  published: Boolean!
+  slug: String!
+  tag_list: String!
+  tags: JSON
+  title: String!
+  type_of: String!
+  user: Devto_SharedUser!
+}
+
+type Devto_getListingsResponse {
+  body_markdown: String!
+  category: String!
+  id: Int!
+  organization: Devto_SharedOrganization
+  processed_html: String!
+  published: Boolean!
+  slug: String!
+  tag_list: String!
+  tags: JSON
+  title: String!
+  type_of: String!
+  user: Devto_SharedUser!
+}
+
+type Devto_getOrgArticlesResponse {
+  canonical_url: String!
+  comments_count: Int!
+  cover_image: String!
+  created_at: String!
+  crossposted_at: String!
+  description: String!
+  edited_at: String!
+  flare_tag: Devto_ArticleFlareTag
+  id: Int!
+  last_comment_at: String!
+  organization: Devto_SharedOrganization
+  path: String!
+  positive_reactions_count: Int!
+  public_reactions_count: Int!
+  published_at: String!
+  published_timestamp: String!
+  readable_publish_date: String!
+  reading_time_minutes: Int!
+  slug: String!
+  social_image: String!
+  tag_list: JSON
+  tags: String!
+  title: String!
+  type_of: String!
+  url: String!
+  user: Devto_SharedUser!
+}
+
+type Devto_getOrgListingsResponse {
+  body_markdown: String!
+  category: String!
+  id: Int!
+  organization: Devto_SharedOrganization
+  processed_html: String!
+  published: Boolean!
+  slug: String!
+  tag_list: String!
+  tags: JSON
+  title: String!
+  type_of: String!
+  user: Devto_SharedUser!
+}
+
+type Devto_getOrgUsersResponse {
+  github_username: String!
+  id: Int!
+  joined_at: String!
+  location: String!
+  name: String!
+  profile_image: String!
+  summary: String!
+  twitter_username: String!
+  type_of: String!
+  username: String!
+  website_url: String!
+}
+
+type Devto_getPodcastEpisodesResponse {
+  id: Int!
+  image_url: String!
+  path: String!
+  podcast: Devto_GetPodcastEpisodesPodcast!
+  title: String!
+  type_of: String!
+}
+
+type Devto_getReadinglistResponse {
+  article: Devto_ArticleIndex!
+  created_at: String!
+  id: Int!
+  status: String!
+  type_of: String!
+}
+
+type Devto_getTagsResponse {
+  bg_color_hex: String!
+  id: Int!
+  name: String!
+  text_color_hex: String!
+}
+
+type Devto_getUserAllArticlesResponse {
+  body_markdown: String!
+  canonical_url: String!
+  comments_count: Int!
+  cover_image: String!
+  description: String!
+  flare_tag: Devto_ArticleFlareTag
+  id: Int!
+  organization: Devto_SharedOrganization
+  page_views_count: Int!
+  path: String!
+  positive_reactions_count: Int!
+  public_reactions_count: Int!
+  published: Boolean!
+  published_at: String!
+  published_timestamp: String!
+  reading_time_minutes: Int!
+  slug: String!
+  tag_list: JSON
+  title: String!
+  type_of: String!
+  url: String!
+  user: Devto_SharedUser!
+}
+
+type Devto_getUserArticlesResponse {
+  body_markdown: String!
+  canonical_url: String!
+  comments_count: Int!
+  cover_image: String!
+  description: String!
+  flare_tag: Devto_ArticleFlareTag
+  id: Int!
+  organization: Devto_SharedOrganization
+  page_views_count: Int!
+  path: String!
+  positive_reactions_count: Int!
+  public_reactions_count: Int!
+  published: Boolean!
+  published_at: String!
+  published_timestamp: String!
+  reading_time_minutes: Int!
+  slug: String!
+  tag_list: JSON
+  title: String!
+  type_of: String!
+  url: String!
+  user: Devto_SharedUser!
+}
+
+type Devto_getUserPublishedArticlesResponse {
+  body_markdown: String!
+  canonical_url: String!
+  comments_count: Int!
+  cover_image: String!
+  description: String!
+  flare_tag: Devto_ArticleFlareTag
+  id: Int!
+  organization: Devto_SharedOrganization
+  page_views_count: Int!
+  path: String!
+  positive_reactions_count: Int!
+  public_reactions_count: Int!
+  published: Boolean!
+  published_at: String!
+  published_timestamp: String!
+  reading_time_minutes: Int!
+  slug: String!
+  tag_list: JSON
+  title: String!
+  type_of: String!
+  url: String!
+  user: Devto_SharedUser!
+}
+
+type Devto_getUserUnpublishedArticlesResponse {
+  body_markdown: String!
+  canonical_url: String!
+  comments_count: Int!
+  cover_image: String!
+  description: String!
+  flare_tag: Devto_ArticleFlareTag
+  id: Int!
+  organization: Devto_SharedOrganization
+  page_views_count: Int!
+  path: String!
+  positive_reactions_count: Int!
+  public_reactions_count: Int!
+  published: Boolean!
+  published_at: String!
+  published_timestamp: String!
+  reading_time_minutes: Int!
+  slug: String!
+  tag_list: JSON
+  title: String!
+  type_of: String!
+  url: String!
+  user: Devto_SharedUser!
+}
+
+type Devto_getWebhooksResponse {
+  created_at: String
+  events: JSON
+  id: Int
+  source: String
+  target_url: String
+  type_of: String
+}
