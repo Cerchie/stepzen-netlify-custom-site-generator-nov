@@ -1,38 +1,104 @@
-<html>
+
+<html lang="en">
+
   <head>
-    <title>GraphQL Query Example</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DEV.to User By ID</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="https://stepzen.com/images/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://stepzen.com/images/favicon/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://stepzen.com/images/favicon/favicon-32x32.png">
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+    <style>
+      button:disabled {
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+    </style>
   </head>
+  
   <body>
-    <pre><code class="language-json" id="code"></code></pre>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.13.0/beautify.js"></script>
+    <h1 class="text-center text-3xl font-bold mt-24 mb-6 uppercase">DEV.to User By ID</h1>
+    <div class="w-2/4 mx-auto" x-data="{ open: false}">
+      <div x-show="open">
+
+    </div>
+    <form action="/" method="POST" class="w-2/4 mx-auto" x-data="idForm()" @submit.prevent="submitData">
+      <div class="mb-4">
+        <label class="block mb-2">ID:</label>
+        <input type="text" name="id" class="border w-full p-1" x-model="formData.id">
+      </div>
+      
+   
+      <button class="bg-gray-700 hover:bg-gray-800 disabled:opacity-50 text-white w-full p-2 mb-4" x-text="buttonLabel"
+        :disabled="loading"></button>
+        <div class="mb-4">Response: </div>
+    </form>
+  
     <script>
-      (async function () {
-        const data = JSON.stringify({
-          query: `{
-devto_getArticleById(id: "575430") {
-  positive_reactions_count
-}
-}
-`,
-        });
+      const options = {mode: 'code', mainMenuBar: false }
+      
+  
+      function idForm() {
+        return {
+          formData: {
+            id: ''
+          },
+          message: '',
+          loading: false,
+          buttonLabel: 'Submit',
+  
+          submitData() {
+            const id = this.formData
+            this.buttonLabel = 'Submitting...'
+            this.loading = true;
+            this.message = '';
+            const body = JSON.stringify({
+                operationName: "MyQuery",
+                query: `query MyQuery($id: String!) {
+                        devto_getUser(id: $id) {
+                          username
+                          github_username
+                          id
+                          joined_at
+                          location
+                          name
+                          type_of
+                          website_url
+                        }
+                      }`,
+                variables: {
+                     id,
+                }
+            })
 
-        const response = await fetch(
-          "https://mojave.stepzen.net/testing/netlifybuild/__graphql",
-          {
-            method: "post",
-            body: data,
-            headers: {
-              "Content-Type": "application/json",
-              "Content-Length": data.length,
-            },
+            console.log('BODY',body)
+            fetch('https://mojave.stepzen.net/testing/netlifybuild/__graphql', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: body
+            })
+              .then(response => response.json()
+              )
+              .then(data => {
+
+                  this.message = data;
+              })
+              .catch((err) => {
+                  console.log(err)
+                this.message = 'Ooops! Something went wrong!'
+              })
+              .finally(() => {
+                this.loading = false;
+                this.buttonLabel = 'Submit'
+              })
           }
-        );
-
-        const json = await response.json();
-        document.getElementById("code").innerHTML = js_beautify(
-          JSON.stringify(json.data)
-        );
-      })();
+        }
+      }
     </script>
   </body>
-</html>
+  
+  </html>
