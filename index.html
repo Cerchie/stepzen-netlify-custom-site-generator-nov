@@ -1,11 +1,9 @@
 <html>
   <head>
     <title>GraphQL Query Example</title>
-    <link href="css/prism.css" rel="stylesheet" />
   </head>
   <body>
     <pre><code class="language-json" id="code"></code></pre>
-    <script src="js/prism.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.13.0/beautify.js"></script>
     <script>
       (async function () {
@@ -37,7 +35,6 @@
         document.getElementById("code").innerHTML = js_beautify(
           JSON.stringify(json.data)
         );
-        Prism.highlightAll();
       })();
     </script>
   </body>
