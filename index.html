@@ -9,24 +9,21 @@
       (async function () {
         const data = JSON.stringify({
           query: `{
-    characters(isMonster:true) {
-      name
-      episode {
-        name
-      }
-    }
-  }`,
+devto_getArticleById(id: "575430") {
+  positive_reactions_count
+}
+}
+`,
         });
 
         const response = await fetch(
-          "https://biggs.stepzen.net/scoobydoo/scoobydoo/__graphql",
+          "https://mojave.stepzen.net/testing/netlifybuild/__graphql",
           {
             method: "post",
             body: data,
             headers: {
               "Content-Type": "application/json",
               "Content-Length": data.length,
-              Authorization: "Apikey DONOTSENDAPIKEYS",
             },
           }
         );
