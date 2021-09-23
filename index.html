@@ -34,8 +34,8 @@
 
             <div class="max-w-sm rounded shadow-lg">
                 <pre class="text-gray-700 text-base">
-  query MyQuery($id: String!) {
-    devto_getUser(id: $id) {
+
+    devto_getUser(id: <span x-text="formData.id"></span>) {
         username
         github_username
         id
@@ -45,11 +45,11 @@
         type_of
         website_url
         }
-      } 
+      
             </pre>
             </div>
             <div>
-                <div class="max-w-sm rounded shadow-lg"> JSON response:
+                <div class="max-w-sm rounded shadow-lg p-2 m-2"> Response:
                     <pre><span x-text="message"></span><pre></pre>
                 </div>
             </div>
@@ -98,8 +98,14 @@
                             })
                             .then(response => response.json(), console.log('BODY AFTER FETCH', body))
                             .then(data => {
-                                console.log('DATA AFTER FETCH', data)
-                                this.message = data;
+                                console.log('DATA AFTER FETCH', data.data.devto_getUser)
+                                let message_massage = 
+                                `
+    Username: ${data.data.devto_getUser.username} 
+    Joined at: ${data.data.devto_getUser.joined_at} 
+    Location: ${data.data.devto_getUser.location}
+                                `
+                                this.message = message_massage
                             })
                             .catch((err) => {
                                 console.log(err)
