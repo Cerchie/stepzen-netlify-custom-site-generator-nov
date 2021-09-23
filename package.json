@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@stepzen/sdk": "^0.9.29",
+    "@stepzen/transpiler": "^0.0.12"
+  }
+}
