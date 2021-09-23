@@ -1,6 +1,12 @@
 {
+  "scripts": {
+    "build": "html-build -c config.js index.html index.html"
+  },
   "dependencies": {
     "@stepzen/sdk": "^0.9.29",
     "@stepzen/transpiler": "^0.0.12"
+  },
+  "devDependencies": {
+    "html-build": "^1.0.1"
   }
 }

@@ -1,7 +1,6 @@
-
 <html lang="en">
 
-  <head>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DEV.to User By ID</title>
@@ -11,31 +10,30 @@
     <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     <style>
-      button:disabled {
-        cursor: not-allowed;
-        opacity: 0.5;
-      }
+        button:disabled {
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
     </style>
-  </head>
-  
-  <body>
+</head>
+
+<body>
     <h1 class="text-center text-3xl font-bold mt-24 mb-6 uppercase">DEV.to User By ID</h1>
     <div class="w-2/4 mx-auto" x-data="{ open: false}">
-      <div x-show="open">
+        <div x-show="open">
 
-    </div>
-    <form action="/" method="POST" class="w-2/4 mx-auto" x-data="idForm()" @submit.prevent="submitData">
-      <div class="mb-4">
-        <label class="block mb-2">ID:</label>
-        <input type="text" name="id" class="border w-full p-1" x-model="formData.id">
-      </div>
-      
-   
-      <button class="bg-gray-700 hover:bg-gray-800 disabled:opacity-50 text-white w-full p-2 mb-4" x-text="buttonLabel"
-        :disabled="loading"></button>
+        </div>
+        <form action="/" method="POST" class="w-2/4 mx-auto" x-data="idForm()" @submit.prevent="submitData">
+            <div class="mb-4">
+                <label class="block mb-2">ID:</label>
+                <input type="text" name="id" class="border w-full p-1" x-model="formData.id">
+            </div>
 
-        <div class="max-w-sm rounded shadow-lg">
-            <pre class="text-gray-700 text-base">
+
+            <button class="bg-gray-700 hover:bg-gray-800 disabled:opacity-50 text-white w-full p-2 mb-4" x-text="buttonLabel" :disabled="loading"></button>
+
+            <div class="max-w-sm rounded shadow-lg">
+                <pre class="text-gray-700 text-base">
   query MyQuery($id: String!) {
     devto_getUser(id: $id) {
         username
@@ -49,30 +47,31 @@
         }
       } 
             </pre>
-          </div>
-          <div>
-          <div class="max-w-sm rounded shadow-lg"> JSON response: <pre><span x-text="message"></span></pre></div>
-        </div>
-    </form>
-  
-    <script>
-      
-      function idForm() {
-        return {
-          formData: {
-            id: ''
-          },
-          message: '',
-          loading: false,
-          buttonLabel: 'Submit',
-  
-          submitData() {
-            this.buttonLabel = 'Submitting...'
-            this.loading = true;
-            this.message = '';
-            const body = JSON.stringify({
-                operationName: "MyQuery",
-                query: `query MyQuery($id: String!) {
+            </div>
+            <div>
+                <div class="max-w-sm rounded shadow-lg"> JSON response:
+                    <pre><span x-text="message"></span><pre></pre>
+                </div>
+            </div>
+        </form>
+
+        <script>
+            function idForm() {
+                return {
+                    formData: {
+                        id: ''
+                    },
+                    message: '',
+                    loading: false,
+                    buttonLabel: 'Submit',
+
+                    submitData() {
+                        this.buttonLabel = 'Submitting...'
+                        this.loading = true;
+                        this.message = '';
+                        const body = JSON.stringify({
+                            operationName: "MyQuery",
+                            query: `query MyQuery($id: String!) {
                         devto_getUser(id: $id) {
                           username
                           github_username
@@ -84,37 +83,36 @@
                           website_url
                         }
                       }`,
-                variables: {
-                    id: this.formData.id,
-                }
-            })
+                            variables: {
+                                id: this.formData.id,
+                            }
+                        })
 
-            console.log('BODY',body)
-            fetch('process.env.STEPZEN_ENDPOINT', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: body
-            })
-              .then(response => response.json(), console.log('BODY AFTER FETCH', body)
-              )
-              .then(data => {
-                console.log('DATA AFTER FETCH', data)
-                  this.message = data;
-              })
-              .catch((err) => {
-                  console.log(err)
-                this.message = 'Ooops! Something went wrong!'
-              })
-              .finally(() => {
-                this.loading = false;
-                this.buttonLabel = 'Submit'
-              })
-          }
-        }
-      }
-    </script>
-  </body>
-  
-  </html>
+                        console.log('BODY', body)
+                        fetch('https://mojave.stepzen.net/testing/netlifybuild/__graphql', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: body
+                            })
+                            .then(response => response.json(), console.log('BODY AFTER FETCH', body))
+                            .then(data => {
+                                console.log('DATA AFTER FETCH', data)
+                                this.message = data;
+                            })
+                            .catch((err) => {
+                                console.log(err)
+                                this.message = 'Ooops! Something went wrong!'
+                            })
+                            .finally(() => {
+                                this.loading = false;
+                                this.buttonLabel = 'Submit'
+                            })
+                    }
+                }
+            }
+        </script>
+</body>
+
+</html>
