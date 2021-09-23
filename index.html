@@ -33,7 +33,26 @@
    
       <button class="bg-gray-700 hover:bg-gray-800 disabled:opacity-50 text-white w-full p-2 mb-4" x-text="buttonLabel"
         :disabled="loading"></button>
-        <div class="mb-4">Response: </div>
+
+        <div class="max-w-sm rounded shadow-lg">
+            <pre class="text-gray-700 text-base">
+  query MyQuery($id: String!) {
+    devto_getUser(id: $id) {
+        username
+        github_username
+        id
+        joined_at
+        location
+        name
+        type_of
+        website_url
+        }
+      } 
+            </pre>
+          </div>
+          <div>
+          <div class="max-w-sm rounded shadow-lg"> JSON response: <pre><span x-text="message"></span></pre></div>
+        </div>
     </form>
   
     <script>
@@ -48,7 +67,6 @@
           buttonLabel: 'Submit',
   
           submitData() {
-            
             this.buttonLabel = 'Submitting...'
             this.loading = true;
             this.message = '';
