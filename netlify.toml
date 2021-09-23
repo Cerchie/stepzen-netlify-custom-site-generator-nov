@@ -1,0 +1,12 @@
+[build]
+  command = "npm run build"
+  publish = "out"
+
+[[plugins]]
+  package = "/plugins/netlify-plugin-stepzen"
+
+[template]
+  incoming-hooks = ["StepZen"]
+
+[template.environment]
+  STEPZEN_ENDPOINT = "Add your StepZen endpoint" 

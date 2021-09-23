@@ -72,7 +72,7 @@
             })
 
             console.log('BODY',body)
-            fetch('https://mojave.stepzen.net/testing/netlifybuild/__graphql', {
+            fetch('process.env.STEPZEN_ENDPOINT', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json'
