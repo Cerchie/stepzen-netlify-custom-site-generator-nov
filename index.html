@@ -48,7 +48,7 @@
           buttonLabel: 'Submit',
   
           submitData() {
-            const id = this.formData
+            
             this.buttonLabel = 'Submitting...'
             this.loading = true;
             this.message = '';
@@ -67,7 +67,7 @@
                         }
                       }`,
                 variables: {
-                     id,
+                    id: this.formData.id,
                 }
             })
 
@@ -79,10 +79,10 @@
               },
               body: body
             })
-              .then(response => response.json()
+              .then(response => response.json(), console.log('BODY AFTER FETCH', body)
               )
               .then(data => {
-
+                console.log('DATA AFTER FETCH', data)
                   this.message = data;
               })
               .catch((err) => {
