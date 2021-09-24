@@ -2,7 +2,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>DEV.to User By ID</title>
+    <title>DEV.to Query</title>
     <link
       rel="apple-touch-icon"
       sizes="180x180"
@@ -47,7 +47,7 @@
         text-indigo-800
       "
     >
-      DEV.to User By ID
+      DEV.to Query
     </h1>
     <div class="w-2/4 mx-auto" x-data="{ open: false}">
       <div x-show="open"></div>
@@ -59,12 +59,12 @@
         @submit.prevent="submitData"
       >
         <div class="mb-4">
-          <label class="block mb-2 text-indigo-900">ID:</label>
+          <label class="block mb-2 text-indigo-900">DEV.to Username:</label>
           <input
             type="text"
-            name="id"
+            name="username"
             class="border w-full p-1"
-            x-model="formData.id"
+            x-model="formData.username"
           />
         </div>
 
@@ -84,27 +84,46 @@
 
         <div class="max-w-sm rounded shadow-lg">
           <pre class="text-indigo-700 text-base">
-
-    devto_getUser(id: <span x-text="formData.id"></span>) {
-        username
-        github_username
-        id
-        joined_at
-        location
-        name
-        type_of
-        website_url
-        articles {
-          canonical_url
-        }
+        query MyQuery {
+          devto_getArticles(
+            username: <span x-text="formData.username"></span>, 
+            per_page: 3, 
+            page: 1) {
+            title
+            canonical_url
+            user {
+              name
+              twitter_username
+              username
+              website_url
+            }
+          }
         }
       
             </pre>
         </div>
         <div>
           <div class="max-w-sm rounded shadow-lg p-2 m-2 text-indigo-900">
-            Response:
-            <pre class="p-2"><span x-text="message"></span></pre>
+            Twitter Link:
+            <a
+              id="twitter_username"
+              x-bind:href="'https://twitter.com/' + twitter_username"
+              class="text-gray-700 px-6 py-3 flex items-center"
+              x-text="twitter_username"
+            >
+            </a>
+          </div>
+        </div>
+        <div>
+          <div class="max-w-sm rounded shadow-lg p-2 m-2 text-indigo-900">
+            Website:
+            <a
+              id="website_url"
+              x-bind:href="website_url"
+              class="text-gray-700 px-6 py-3 flex items-center"
+              x-text="website_url"
+            >
+            </a>
           </div>
         </div>
         <div>
@@ -119,8 +138,26 @@
               text-indigo-900
             "
           >
-            Articles:
+            First 3 Articles:
             <pre><span x-text="articles"></span></pre>
+            <a
+            id="article1"
+            x-bind:href="article1url"
+            class="text-gray-700 px-6 py-3 flex items-center"
+            x-text="article1"
+          >
+          <a
+          id="article2"
+          x-bind:href="article2url"
+          class="text-gray-700 px-6 py-3 flex items-center"
+          x-text="article2"
+        >
+        <a
+        id="article3"
+        x-bind:href="article3url"
+        class="text-gray-700 px-6 py-3 flex items-center"
+        x-text="article3"
+      >
           </div>
         </div>
       </form>
@@ -129,37 +166,39 @@
       function idForm() {
         return {
           formData: {
-            id: '',
+            username: '',
           },
-          message: '',
+          twitter_username: '',
+          website_url: '',
           articles: '',
           loading: false,
+          article1: '',
+          article1url: '',
+          article2: '',
+          article2url: '',
+          article3: '',
+          article3url: '',
           buttonLabel: 'Submit',
 
           submitData() {
             this.buttonLabel = 'Submitting...'
             this.loading = true
-            this.message = ''
             const body = JSON.stringify({
               operationName: 'MyQuery',
-              query: `query MyQuery($id: String!) {
-                          devto_getUser(id: $id) {
-                            username
-                            github_username
-                            id
-                            joined_at
-                            location
-                            name
-                            type_of
-                            website_url
-                                    articles {
-            canonical_url
-            title
-          }
-                          }
-                        }`,
+              query: `query MyQuery ($username: String) {
+  devto_getArticles(username: $username, per_page: 3, page: 1) {
+    title
+    canonical_url
+    user {
+      name
+      twitter_username
+      username
+      website_url
+    }
+  }
+}`,
               variables: {
-                id: this.formData.id,
+                username: this.formData.username,
               },
             })
 
@@ -176,17 +215,15 @@
                 console.log('BODY AFTER FETCH', body)
               )
               .then((data) => {
-                console.log('DATA AFTER FETCH', data.data.devto_getUser)
-                let message_massage = `
-      Username: ${data.data.devto_getUser.username}
-      Joined at: ${data.data.devto_getUser.joined_at}
-      Location: ${data.data.devto_getUser.location}
-                                  `
-                this.message = message_massage
-                this.articles = `
-  1. ${data.data.devto_getUser.articles[0].title} 
-  2. ${data.data.devto_getUser.articles[1].title}
-  3. ${data.data.devto_getUser.articles[2].title}`
+                console.log('DATA AFTER FETCH', data.data.devto_getArticles[0].canonical_url)
+                this.twitter_username = `${data.data.devto_getArticles[0].user.twitter_username} `
+                this.website_url = `${data.data.devto_getArticles[0].user.website_url}`
+                this.article1 = `${data.data.devto_getArticles[0].title}`
+                this.article1url = `${data.data.devto_getArticles[0].canonical_url}`
+                this.article2 = `${data.data.devto_getArticles[1].title}`
+                this.article2url = `${data.data.devto_getArticles[1].canonical_url}`
+                this.article3 = `${data.data.devto_getArticles[2].title}`
+                this.article3url = `${data.data.devto_getArticles[2].canonical_url}`
               })
               .catch((err) => {
                 console.log(err)
@@ -202,9 +239,3 @@
     </script>
   </body>
 </html>
-
-<!-- query MyQuery {
-  devto_getArticles(username: "ben", top: 10) {
-    url
-  }
-} -->
