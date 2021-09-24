@@ -37,7 +37,16 @@
   </head>
 
   <body>
-    <h1 class="text-center text-3xl font-bold mt-24 mb-6 uppercase">
+    <h1
+      class="
+        text-center text-3xl
+        font-bold
+        mt-24
+        mb-6
+        uppercase
+        text-indigo-800
+      "
+    >
       DEV.to User By ID
     </h1>
     <div class="w-2/4 mx-auto" x-data="{ open: false}">
@@ -50,7 +59,7 @@
         @submit.prevent="submitData"
       >
         <div class="mb-4">
-          <label class="block mb-2">ID:</label>
+          <label class="block mb-2 text-indigo-900">ID:</label>
           <input
             type="text"
             name="id"
@@ -61,7 +70,7 @@
 
         <button
           class="
-            bg-gray-700
+            bg-indigo-800
             hover:bg-gray-800
             disabled:opacity-50
             text-white
@@ -74,7 +83,7 @@
         ></button>
 
         <div class="max-w-sm rounded shadow-lg">
-          <pre class="text-gray-700 text-base">
+          <pre class="text-indigo-700 text-base">
 
     devto_getUser(id: <span x-text="formData.id"></span>) {
         username
@@ -93,15 +102,25 @@
             </pre>
         </div>
         <div>
-          <div class="max-w-sm rounded shadow-lg p-2 m-2">
+          <div class="max-w-sm rounded shadow-lg p-2 m-2 text-indigo-900">
             Response:
             <pre class="p-2"><span x-text="message"></span></pre>
           </div>
         </div>
         <div>
-          <div class="max-w-sm rounded shadow-lg p-2 m-2">
+          <div
+            class="
+              max-w-sm
+              rounded
+              shadow-lg
+              m-2
+              p-2
+              overflow-scroll
+              text-indigo-900
+            "
+          >
             Articles:
-            <pre class="p-2"><span x-text="articles" class="p-2"></span></pre>
+            <pre><span x-text="articles"></span></pre>
           </div>
         </div>
       </form>
@@ -164,7 +183,10 @@
       Location: ${data.data.devto_getUser.location}
                                   `
                 this.message = message_massage
-                this.articles = `Articles: ${data.data.devto_getUser.articles[0].title} ${data.data.devto_getUser.articles[1].title} ${data.data.devto_getUser.articles[2].title}`
+                this.articles = `
+  1. ${data.data.devto_getUser.articles[0].title} 
+  2. ${data.data.devto_getUser.articles[1].title}
+  3. ${data.data.devto_getUser.articles[2].title}`
               })
               .catch((err) => {
                 console.log(err)
