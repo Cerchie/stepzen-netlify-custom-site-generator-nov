@@ -49,12 +49,12 @@
     >
       DEV.to Query
     </h1>
-    <div class="w-2/4 mx-auto" x-data="{ open: false}">
+    <div class="w-3/4 mx-auto" x-data="{ open: false}">
       <div x-show="open"></div>
       <form
         action="/"
         method="POST"
-        class="w-2/4 mx-auto"
+        class="w-3/4 mx-auto"
         x-data="idForm()"
         @submit.prevent="submitData"
       >
@@ -82,7 +82,7 @@
           :disabled="loading"
         ></button>
 
-        <div class="max-w-sm rounded shadow-lg">
+        <div class="w-3/4 mx-auto rounded shadow-lg">
           <pre class="text-indigo-700 text-base">
         query MyQuery {
           devto_getArticles(
@@ -103,7 +103,7 @@
             </pre>
         </div>
         <div>
-          <div class="max-w-sm rounded shadow-lg p-2 m-2 text-indigo-900">
+          <div class="w-3/4 mx-auto rounded shadow-lg p-2 m-2 text-indigo-900">
             Twitter Link:
             <a
               id="twitter_username"
@@ -115,7 +115,7 @@
           </div>
         </div>
         <div>
-          <div class="max-w-sm rounded shadow-lg p-2 m-2 text-indigo-900">
+          <div class="w-3/4 mx-auto rounded shadow-lg p-2 m-2 text-indigo-900">
             Website:
             <a
               id="website_url"
@@ -129,7 +129,8 @@
         <div>
           <div
             class="
-              max-w-sm
+              w-3/4
+              mx-auto
               rounded
               shadow-lg
               m-2
@@ -215,10 +216,6 @@
                 console.log('BODY AFTER FETCH', body)
               )
               .then((data) => {
-                console.log(
-                  'DATA AFTER FETCH',
-                  data.data.devto_getArticles[0].canonical_url
-                )
                 this.twitter_username = `${data.data.devto_getArticles[0].user.twitter_username} `
                 this.website_url = `${data.data.devto_getArticles[0].user.website_url}`
                 this.article1 = `${data.data.devto_getArticles[0].title}`
