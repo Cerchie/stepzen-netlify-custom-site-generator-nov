@@ -141,23 +141,23 @@
             First 3 Articles:
             <pre><span x-text="articles"></span></pre>
             <a
-            id="article1"
-            x-bind:href="article1url"
-            class="text-gray-700 px-6 py-3 flex items-center"
-            x-text="article1"
-          >
-          <a
-          id="article2"
-          x-bind:href="article2url"
-          class="text-gray-700 px-6 py-3 flex items-center"
-          x-text="article2"
-        >
-        <a
-        id="article3"
-        x-bind:href="article3url"
-        class="text-gray-700 px-6 py-3 flex items-center"
-        x-text="article3"
-      >
+              id="article1"
+              x-bind:href="article1url"
+              class="text-gray-700 px-6 py-3 flex items-center"
+              x-text="article1"
+            ></a>
+            <a
+              id="article2"
+              x-bind:href="article2url"
+              class="text-gray-700 px-6 py-3 flex items-center"
+              x-text="article2"
+            ></a>
+            <a
+              id="article3"
+              x-bind:href="article3url"
+              class="text-gray-700 px-6 py-3 flex items-center"
+              x-text="article3"
+            ></a>
           </div>
         </div>
       </form>
@@ -215,7 +215,10 @@
                 console.log('BODY AFTER FETCH', body)
               )
               .then((data) => {
-                console.log('DATA AFTER FETCH', data.data.devto_getArticles[0].canonical_url)
+                console.log(
+                  'DATA AFTER FETCH',
+                  data.data.devto_getArticles[0].canonical_url
+                )
                 this.twitter_username = `${data.data.devto_getArticles[0].user.twitter_username} `
                 this.website_url = `${data.data.devto_getArticles[0].user.website_url}`
                 this.article1 = `${data.data.devto_getArticles[0].title}`
