@@ -202,8 +202,6 @@
                 username: this.formData.username,
               },
             })
-
-            console.log('BODY', body)
             fetch('https://mojave.stepzen.net/testing/netlifybuild/__graphql', {
               method: 'POST',
               headers: {
@@ -211,19 +209,27 @@
               },
               body: body,
             })
-              .then(
-                (response) => response.json(),
-                console.log('BODY AFTER FETCH', body)
-              )
+              .then((response) => response.json())
               .then((data) => {
-                this.twitter_username = `${data.data.devto_getArticles[0].user.twitter_username} `
-                this.website_url = `${data.data.devto_getArticles[0].user.website_url}`
-                this.article1 = `${data.data.devto_getArticles[0].title}`
-                this.article1url = `${data.data.devto_getArticles[0].canonical_url}`
-                this.article2 = `${data.data.devto_getArticles[1].title}`
-                this.article2url = `${data.data.devto_getArticles[1].canonical_url}`
-                this.article3 = `${data.data.devto_getArticles[2].title}`
-                this.article3url = `${data.data.devto_getArticles[2].canonical_url}`
+                if (data.data.devto_getArticles[0] === undefined) {
+                  this.twitter_username = `Error: undefined`
+                  this.website_url = `Error: undefined`
+                  this.article1 = `Error: undefined`
+                  this.article1url = `Error: undefined`
+                  this.article2 = `Error: undefined`
+                  this.article2url = `Error: undefined`
+                  this.article3 = `Error: undefined`
+                  this.article3url = `Error: undefined`
+                } else {
+                  this.twitter_username = `${data.data.devto_getArticles[0].user.twitter_username} `
+                  this.website_url = `${data.data.devto_getArticles[0].user.website_url}`
+                  this.article1 = `${data.data.devto_getArticles[0].title}`
+                  this.article1url = `${data.data.devto_getArticles[0].canonical_url}`
+                  this.article2 = `${data.data.devto_getArticles[1].title}`
+                  this.article2url = `${data.data.devto_getArticles[1].canonical_url}`
+                  this.article3 = `${data.data.devto_getArticles[2].title}`
+                  this.article3url = `${data.data.devto_getArticles[2].canonical_url}`
+                }
               })
               .catch((err) => {
                 console.log(err)
