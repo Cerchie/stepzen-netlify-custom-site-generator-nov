@@ -98,7 +98,7 @@ type Query {
     This parameter can be used in conjuction with `state`.
     """
     username: String
-  ): Devto_getArticlesResponse
+  ): [Devto_getArticlesResponse]
     @rest(
       endpoint: """
       https://dev.to/api/articles
@@ -1016,6 +1016,11 @@ type Devto_DevToUser {
   type_of: String!
   username: String!
   website_url: String!
+  articles: [Devto_getArticlesResponse]
+    @materializer(
+      query: "devto_getArticles"
+      arguments: [{ name: "username", field: "username" }]
+    )
 }
 
 """
