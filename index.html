@@ -47,7 +47,7 @@
         shadow-sm
       "
     >
-     Make a DEV.to Query
+     Make a query to DEV.to in a static site using StepZen
     </h1>
 
     <div class="w-3/4 mx-auto" x-data="{ open: false}">
@@ -76,7 +76,7 @@
           />
         </div>
         <div>          <div>
-          <p class="p-4 m-4 shadow-md bg-indigo-900 text-white">
+          <p class="p-4 m-4 shadow-md bg-indigo-900 text-white text-lg rounded">
             ⇦ StepZen's custom <u><a href="https://stepzen.com/docs/connecting-backends/how-to-connect-a-rest-service">@rest directive </a></u> operates behind the scenes in the
             sdl to retrieve dynamic information.
           </p>
@@ -100,13 +100,13 @@
           :disabled="loading"
         ></button>
         <div></div>
-        <div class="m-4 p-2 shadow-lg bg-indigo-900 text-white"> 
+        <div class="m-4 p-2 shadow-lg bg-indigo-900 text-white rounded"> 
           
-        <p class="m-4">StepZen executes this query when you hit 'submit'. &#10158;</p>
+        <p class="m-4 text-lg">StepZen executes this query when you hit 'submit'. ⇨</p>
           
-        <p class="m-4">It hits a pre-deployed StepZen endpoint with a live connection to the DEV.to API. </p>
+        <p class="m-4 text-lg">It hits a pre-deployed StepZen endpoint with a live connection to the DEV.to API. </p>
       
-        <p class="m-4">The following information is returned from the StepZen endpoint
+        <p class="m-4 text-lg">The following information is returned from the StepZen endpoint
           ⇩</p>
       </div>
         <div class="w-3/4">
@@ -146,13 +146,14 @@
               text-indigo-900
               grid grid-span-3
               font-bold
+    
             "
           >
             Twitter Link:
             <a
               id="twitter_username"
               x-bind:href="'https://twitter.com/' + twitter_username"
-              class="text-gray-700 px-6 py-3 flex items-center"
+              class="text-gray-700 px-6 py-3 flex items-center "
               x-text="twitter_username"
               
             >
