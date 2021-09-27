@@ -36,18 +36,18 @@
     </style>
   </head>
 
-  <body>
+  <body class="bg-white text-indigo-700">
     <h1
       class="
         text-center text-3xl
         font-bold
         mt-24
         mb-6
-        uppercase
-        text-indigo-800
+        text-indigo-900
+        shadow-sm
       "
     >
-      DEV.to Query
+     Make a DEV.to Query
     </h1>
 
     <div class="w-3/4 mx-auto" x-data="{ open: false}">
@@ -60,22 +60,13 @@
         @submit.prevent="submitData"
       >
         <div></div>
-        <div class="w-3/4 grid grid-span-3">
-          <div>
-            <p class="text-indigo-800 text-base p-2">
-              StepZen's custom @rest directive operates behind the scenes in the
-              sdl to retrieve dynamic information.
-            </p>
-          </div>
-          <pre class="text-indigo-700 text-base m-2">
-      @rest(endpoint: "https://dev.to/api/articles")
-      </pre
-          >
+        <div class="w-3/4">
+
         </div>
         <div></div>
         <div></div>
         <div class="mb-4">
-          <label class="block mb-2 text-indigo-900">DEV.to Username:</label>
+          <label class="block mb-2 text-indigo-900">Username:</label>
           <input
             type="text"
             name="username"
@@ -84,7 +75,13 @@
             placeholder="cassidoo"
           />
         </div>
-        <div></div>
+        <div>          <div>
+          <p class="p-4 m-4 shadow-md bg-indigo-900 text-white">
+            ⇦ StepZen's custom <u><a href="https://stepzen.com/docs/connecting-backends/how-to-connect-a-rest-service">@rest directive </a></u> operates behind the scenes in the
+            sdl to retrieve dynamic information.
+          </p>
+        </div>
+</div>
         <div></div>
         <button
           class="
@@ -92,18 +89,28 @@
             hover:bg-gray-800
             disabled:opacity-50
             text-white
+            rounded
             w-full
             p-2
             mb-4
             grid grid-span-3
+            shadow-md
           "
           x-text="buttonLabel"
           :disabled="loading"
         ></button>
         <div></div>
-        <div class="m-4 p-2"> StepZen executes this query when you hit 'submit'. &#10158; </div>
+        <div class="m-4 p-2 shadow-lg bg-indigo-900 text-white"> 
+          
+        <p class="m-4">StepZen executes this query when you hit 'submit'. &#10158;</p>
+          
+        <p class="m-4">It hits a pre-deployed StepZen endpoint with a live connection to the DEV.to API. </p>
+      
+        <p class="m-4">The following information is returned from the StepZen endpoint
+          ⇩</p>
+      </div>
         <div class="w-3/4">
-          <pre class="text-indigo-700 text-base">
+          <pre class="text-indigo-800 text-base font-bold">
         query MyQuery {
           devto_getArticles(
             username: <span x-text="formData.username"></span>, 
@@ -126,8 +133,7 @@
         <div >
 
         </div>
-        <div class="m-4 shadow-md p-2">The following information is returned from the StepZen endpoint
-          ⇩</div>
+        <div ></div>
         <div></div>
         <div>
           <div
@@ -139,6 +145,7 @@
               m-2
               text-indigo-900
               grid grid-span-3
+              font-bold
             "
           >
             Twitter Link:
@@ -147,6 +154,7 @@
               x-bind:href="'https://twitter.com/' + twitter_username"
               class="text-gray-700 px-6 py-3 flex items-center"
               x-text="twitter_username"
+              
             >
             </a>
           </div>
@@ -163,6 +171,7 @@
               m-2
               text-indigo-900
               grid grid-span-3
+              font-bold
             "
           >
             Website:
@@ -188,16 +197,17 @@
               p-2
               overflow-scroll
               text-indigo-900
+              font-bold
             "
           >
-            First 3 Articles:
+            First 3 Article Links:
 
         </div> <div></div> <div></div>
         <div>
               <a
                 id="article1"
                 x-bind:href="article1url"
-                class="text-gray-700 px-6 py-3 m-4"
+                class="text-gray-700 px-6 py-3 m-4 font-bold"
                 x-text="article1"
               ></a>
             </div>
@@ -205,7 +215,7 @@
               <a
                 id="article2"
                 x-bind:href="article2url"
-                class="text-gray-700 px-6 py-3 m-4"
+                class="text-gray-700 px-6 py-3 m-4 font-bold"
                 x-text="article2"
               ></a>
             </div>
@@ -213,7 +223,7 @@
               <a
                 id="article3"
                 x-bind:href="article3url"
-                class="text-gray-700 px-6 py-3 m-4"
+                class="text-gray-700 px-6 py-3 m-4 font-bold"
                 x-text="article3"
               ></a>
             </div>
