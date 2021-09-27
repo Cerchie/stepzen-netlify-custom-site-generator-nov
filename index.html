@@ -49,18 +49,20 @@
     >
       DEV.to Query
     </h1>
+
     <div class="w-3/4 mx-auto" x-data="{ open: false}">
       <div x-show="open"></div>
       <form
         action="/"
         method="POST"
-        class="w-3/4 mx-auto"
+        class="w-3/4 grid grid-cols-3"
         x-data="idForm()"
         @submit.prevent="submitData"
       >
-        <div class="w-3/4 mx-auto rounded shadow-md">
+        <div></div>
+        <div class="w-3/4 grid grid-span-3">
           <div>
-            <p class="text-indigo-800 text-base m-2">
+            <p class="text-indigo-800 text-base p-2">
               StepZen's custom @rest directive operates behind the scenes in the
               sdl to retrieve dynamic information.
             </p>
@@ -70,6 +72,8 @@
       </pre
           >
         </div>
+        <div></div>
+        <div></div>
         <div class="mb-4">
           <label class="block mb-2 text-indigo-900">DEV.to Username:</label>
           <input
@@ -77,9 +81,11 @@
             name="username"
             class="border w-full p-1"
             x-model="formData.username"
+            placeholder="cassidoo"
           />
         </div>
-
+        <div></div>
+        <div></div>
         <button
           class="
             bg-indigo-800
@@ -89,12 +95,14 @@
             w-full
             p-2
             mb-4
+            grid grid-span-3
           "
           x-text="buttonLabel"
           :disabled="loading"
         ></button>
-
-        <div class="w-3/4 mx-auto rounded shadow-lg">
+        <div></div>
+        <div class="m-4 p-2"> StepZen executes this query when you hit 'submit'. &#10158; </div>
+        <div class="w-3/4">
           <pre class="text-indigo-700 text-base">
         query MyQuery {
           devto_getArticles(
@@ -114,8 +122,25 @@
       
             </pre>
         </div>
+        <div></div>
+        <div >
+
+        </div>
+        <div class="m-4 shadow-md p-2">The following information is returned from the StepZen endpoint
+          ⇩</div>
+        <div></div>
         <div>
-          <div class="w-3/4 mx-auto rounded shadow-lg p-2 m-2 text-indigo-900">
+          <div
+            class="
+              w-3/4
+              mx-auto
+              rounded
+              p-2
+              m-2
+              text-indigo-900
+              grid grid-span-3
+            "
+          >
             Twitter Link:
             <a
               id="twitter_username"
@@ -126,25 +151,39 @@
             </a>
           </div>
         </div>
-        <div>
-          <div class="w-3/4 mx-auto rounded shadow-lg p-2 m-2 text-indigo-900">
-            Website:
-            <a
-              id="website_url"
-              x-bind:href="website_url"
-              class="text-gray-700 px-6 py-3 flex items-center"
-              x-text="website_url"
-            >
-            </a>
-          </div>
-        </div>
+        <div></div>
+
         <div>
           <div
             class="
               w-3/4
               mx-auto
               rounded
-              shadow-lg
+              p-2
+              m-2
+              text-indigo-900
+              grid grid-span-3
+            "
+          >
+            Website:
+            <a
+              id="website_url"
+              x-bind:href="website_url"
+              class="text-gray-700 px-6 py-3 flex items-center grid grid-span-3"
+              x-text="website_url"
+            >
+            </a>
+          </div>
+        </div>
+        <div></div>
+        <div></div>
+        <div></div>
+
+          <div
+            class="
+              w-3/4
+              mx-auto
+              rounded
               m-2
               p-2
               overflow-scroll
@@ -152,26 +191,35 @@
             "
           >
             First 3 Articles:
-            <pre><span x-text="articles"></span></pre>
-            <a
-              id="article1"
-              x-bind:href="article1url"
-              class="text-gray-700 px-6 py-3 flex items-center"
-              x-text="article1"
-            ></a>
-            <a
-              id="article2"
-              x-bind:href="article2url"
-              class="text-gray-700 px-6 py-3 flex items-center"
-              x-text="article2"
-            ></a>
-            <a
-              id="article3"
-              x-bind:href="article3url"
-              class="text-gray-700 px-6 py-3 flex items-center"
-              x-text="article3"
-            ></a>
-          </div>
+
+        </div> <div></div> <div></div>
+        <div>
+              <a
+                id="article1"
+                x-bind:href="article1url"
+                class="text-gray-700 px-6 py-3 m-4"
+                x-text="article1"
+              ></a>
+            </div>
+            <div>
+              <a
+                id="article2"
+                x-bind:href="article2url"
+                class="text-gray-700 px-6 py-3 m-4"
+                x-text="article2"
+              ></a>
+            </div>
+            <div>
+              <a
+                id="article3"
+                x-bind:href="article3url"
+                class="text-gray-700 px-6 py-3 m-4"
+                x-text="article3"
+              ></a>
+            </div>
+
+            <div></div>
+
         </div>
       </form>
     </div>
