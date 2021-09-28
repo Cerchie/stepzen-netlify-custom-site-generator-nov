@@ -45,9 +45,10 @@
         mb-6
         text-indigo-900
         shadow-sm
+        mr-40
       "
     >
-      Make a query to DEV.to in a static site using StepZen
+      Make a dynamic query to DEV.to in a static site using StepZen
     </h1>
 
     <div class="w-3/4 mx-auto" x-data="{ open: false}">
@@ -98,11 +99,11 @@
               <u
                 ><a
                   href="https://stepzen.com/docs/connecting-backends/how-to-connect-a-rest-service"
-                  >@rest directive
+                  >@rest 
                 </a></u
               >
-              @rest is included in the GraphQL schema (sdl) that defines your endpoint.
-               It connects the dev.to REST API to retrieve dynamic info. 
+             is included in the GraphQL schema (sdl) that defines your endpoint.
+               It connects to the DEV.to REST API to retrieve dynamic info. 
             </p>
             <p class="m-2">
               The following info is returned from that GraphQL endpoint running on StepZen ⇩
@@ -129,13 +130,13 @@
             username: <span x-text="formData.username"></span>, 
             per_page: 3, 
             page: 1) {
-            title
-            canonical_url
+              title
+              canonical_url
             user {
+              website_url
+              username
               name
               twitter_username
-              username
-              website_url
             }
           }
         }
@@ -157,39 +158,42 @@
             ml-20
           "
         >
-          Twitter Link:
-          <a
-            id="twitter_username"
-            x-bind:href="'https://twitter.com/' + twitter_username"
-            class="text-gray-700 px-6 py-3 flex items-center text-lg"
-            x-text="twitter_username"
-          >
-          </a>
-
-            Website:
-            <a
-              id="website_url"
-              x-bind:href="website_url"
-              class="
-                text-gray-700
-                px-6
-                py-3
-                flex
-                items-center
-                grid grid-span-3
-              "
-              x-text="website_url"
-            >
-            </a>
-
-          Most Recent Article Link:
+          Article:
         <a
           id="article1"
           x-bind:href="article1url"
           class="text-gray-700 px-6 py-3 m-4 font-bold"
           x-text="article1"
         ></a>
-
+        User:
+  <div></div>
+  <div class="ml-10">
+            website:
+            <a
+            id="website_url"
+            x-bind:href="website_url"
+            class="
+              text-gray-700
+              px-6
+              py-3
+              flex
+              items-center
+              grid grid-span-3
+            "
+            x-text="website_url"
+          >
+          </a>
+        </div>
+        <div class="ml-10">
+            twitter: 
+        <a
+          id="twitter_username"
+          x-bind:href="'https://twitter.com/' + twitter_username"
+          class="text-gray-700 px-6 py-3 flex items-center"
+          x-text="twitter_username"
+        >
+        </a>
+        </div>
         <!-- <a
           id="article2"
           x-bind:href="article2url"
