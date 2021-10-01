@@ -58,29 +58,19 @@
     <!-- Section 1 header -->
     <section class="w-full px-8 text-gray-700 bg-white">
       <div
-        class="container flex flex-col flex-wrap items-center justify-between py-5 mx-auto md:flex-row max-w-7xl border-b"
+        class="flex flex-col items-center justify-between p-5 mx-auto md:flex-row max-w-7xl border-b"
       >
-        <div class="relative flex flex-col md:flex-row">
-          <a
-            href="https://stepzen.com"
-            class="flex items-center mb-5 font-medium text-gray-900 lg:w-auto lg:items-center lg:justify-center md:mb-0"
-          >
+        <div class="flex-1">
+          <a href="https://stepzen.com" class="">
             <img src="https://stepzen.com/images/logo.svg" class="image-xl" />
           </a>
         </div>
-        <div class="relative flex flex-col md:flex-row">
+        <div class="flex-1">
           <p class="text-xl">
             <strong>Dynamic data</strong> to power your app!
           </p>
         </div>
-        <div class="inline-flex items-center ml-5 space-x-6 lg:justify-end">
-          <a
-            href="https://stepzen.com/signup"
-            class="inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap bg-blue-600 border border-transparent rounded-md shadow-sm hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600"
-          >
-            Sign up
-          </a>
-        </div>
+        <div class="flex-1"></div>
       </div>
     </section>
     <!-- Section 2 three steps section -->
@@ -249,22 +239,33 @@ query MyQuery {
       </div>
     </section>
     <!-- section 4 footer -->
-    <section class="w-full px-8 text-gray-700 bg-white">
+    <section class="w-full px-8 text-gray-700 bg-white pt-12">
       <div
         class="container flex flex-col flex-wrap items-center justify-between py-5 mx-auto md:flex-row max-w-7xl border-t"
       >
-        <div>
+        <div class="flex-1">
           <p
             class="text-sm mt-0 mr-0 mb-0 ml-0 pt-0 pr-0 pb-0 pl-0 text-gray-600"
-            contenteditable="false"
-            disabled=""
           >
             © Copyright 2021 StepZen, Inc. All rights reserved.
           </p>
         </div>
-
+        <div class="flex-1">
+          <div class="flex flex-col justify-center items-center">
+            <div>StepZen is free for developers.</div>
+            <div>Start building today!</div>
+            <div>
+              <a
+                href="https://stepzen.com/signup"
+                class="inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap bg-blue-600 border border-transparent rounded-md shadow-sm hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600"
+              >
+                Sign up
+              </a>
+            </div>
+          </div>
+        </div>
         <div
-          class="space-y-2 lg:mb-0 sm:space-y-0 sm:space-x-5 sm:flex-row flex bg-top bg-cover flex-col items-center mt-0 mr-0 mb-3 ml-0 pt-0 pr-0 pb-0 pl-0"
+          class="justify-end space-y-2 lg:mb-0 sm:space-y-0 sm:space-x-5 sm:flex-row flex bg-top bg-cover flex-1 items-center mt-0 mr-0 mb-3 ml-0 pt-0 pr-0 pb-0 pl-0"
         >
           <div class="">
             <a href="https://discord.gg/9k2VdPn2FR">
