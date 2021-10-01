@@ -1,8 +1,9 @@
-<html lang="en">
+<!DOCTYPE html>
+<html>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>DEV.to Query</title>
+    <title>StepZen Sample</title>
     <link
       rel="apple-touch-icon"
       sizes="180x180"
@@ -21,8 +22,8 @@
       href="https://stepzen.com/images/favicon/favicon-32x32.png"
     />
     <link
-      href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
       rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.2/tailwind.min.css"
     />
     <script
       src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"
@@ -30,213 +31,282 @@
     ></script>
     <style>
       button:disabled {
-          cursor: not-allowed;
-          opacity: 0.5;
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/brands.min.css"
+      integrity="sha512-apX8rFN/KxJW8rniQbkvzrshQ3KvyEH+4szT3Sno5svdr6E/CP0QE862yEeLBMUnCqLko8QaugGkzvWS7uNfFQ=="
+      crossorigin="anonymous"
+    />
+    <meta charset="UTF-8" />
+    <style>
+      .image-xl {
+        width: 150px;
       }
     </style>
   </head>
-
-  <body class="bg-white text-indigo-700">
-    <h1
-      class="
-        text-center text-3xl
-        font-bold
-        mt-24
-        mb-6
-        text-indigo-900
-        shadow-sm
-        mr-40
-      "
-    >
-      Make a dynamic query to DEV.to in a static site using StepZen
-    </h1>
-
-    <div class="w-3/4 mx-auto" x-data="{ open: false}">
-      <div x-show="open"></div>
+  <body>
+    <!-- Section 1 header -->
+    <section class="w-full px-8 text-gray-700 bg-white">
+      <div
+        class="container flex flex-col flex-wrap items-center justify-between py-5 mx-auto md:flex-row max-w-7xl border-b"
+      >
+        <div class="relative flex flex-col md:flex-row">
+          <a
+            href="https://stepzen.com"
+            class="flex items-center mb-5 font-medium text-gray-900 lg:w-auto lg:items-center lg:justify-center md:mb-0"
+          >
+            <img src="https://stepzen.com/images/logo.svg" class="image-xl" />
+          </a>
+        </div>
+        <div class="relative flex flex-col md:flex-row">
+          <p class="text-xl">
+            <strong>Dynamic data</strong> to power your app!
+          </p>
+        </div>
+        <div class="inline-flex items-center ml-5 space-x-6 lg:justify-end">
+          <a
+            href="https://stepzen.com/signup"
+            class="inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap bg-blue-600 border border-transparent rounded-md shadow-sm hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600"
+          >
+            Sign up
+          </a>
+        </div>
+      </div>
+    </section>
+    <!-- Section 2 three steps section -->
+    <section class="w-full px-8 text-gray-700 bg-white">
       <form
         action="/"
         method="POST"
-        class="w-3/4 grid grid-cols-3"
         x-data="idForm()"
         @submit.prevent="submitData"
       >
-        <div></div>
-        <div class="w-3/4"></div>
-        <div></div>
-        <div></div>
-        <div class="mb-4">
-          <label class="block mb-2 text-indigo-900">Username:</label>
-          <input
-            type="text"
-            name="username"
-            class="border w-full p-1"
-            x-model="formData.username"
-            placeholder="cassidoo"
-          />
-          <button
-          class="
-            bg-indigo-800
-            hover:bg-gray-800
-            disabled:opacity-50
-            text-white
-            rounded
-            w-full
-            p-2
-            mb-4
-            mr-2
-            mt-2
-            grid grid-span-3
-            shadow-md
-          "
-          x-text="buttonLabel"
-          :disabled="loading"
-        ></button>
-        </div>
-        <div>
-          <div class="p-4 m-4 ml-20 shadow-md bg-indigo-900 text-white rounded">
-            <p class="m-2">
-              ⇦ StepZen’s custom directive 
-              <u
-                ><a
-                  href="https://stepzen.com/docs/connecting-backends/how-to-connect-a-rest-service"
-                  >@rest 
-                </a></u
-              >
-             is included in the GraphQL schema (sdl) that defines your endpoint.
-               It connects to the DEV.to REST API to retrieve dynamic info. 
-            </p>
-            <p class="m-2">
-              
-              The following info is returned from that GraphQL endpoint running on StepZen ⇩
-            </p>
+        <div
+          class="text-center flex flex-wrap overflow-hidden items-start justify-between mx-auto md:flex-row max-w-7xl pt-16 pr-4 pb-4 pl-4"
+        >
+          <!-- sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20 -->
+          <div
+            class="my-1 px-1 w-1/3 overflow-hidden flex flex-row items-center justify-center"
+          >
+            <div
+              class="font-bold text-gray-700 rounded-full bg-gray-100 flex items-center justify-center font-mono"
+              style="height: 40px; width: 40px"
+            >
+              1
+            </div>
+            <div class="px-2">Enter a DEV.to username...</div>
+          </div>
+
+          <div
+            class="my-1 px-1 w-1/3 overflow-hidden flex flex-row items-center justify-center"
+          >
+            <div
+              class="font-bold text-gray-700 rounded-full bg-gray-100 flex items-center justify-center font-mono"
+              style="height: 40px; width: 40px"
+            >
+              2
+            </div>
+            <div class="px-2">The GraphQL query looks like...</div>
+          </div>
+
+          <div
+            class="my-1 px-1 w-1/3 overflow-hidden flex flex-row items-center justify-center"
+          >
+            <div
+              class="font-bold text-gray-700 rounded-full bg-gray-100 flex items-center justify-center font-mono"
+              style="height: 40px; width: 40px"
+            >
+              3
+            </div>
+            <div class="px-2">The response populates the markup...</div>
+          </div>
+
+          <div class="my-1 p-1 w-1/3 overflow-visible">
+            <label class="">Username:</label>
+            <input
+              type="text"
+              name="username"
+              class="border w-3/4 p-1"
+              x-model="formData.username"
+              placeholder="cassidoo"
+            />
+            <div class="p-1">
+              <button
+                class="bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white rounded w-1/3 p-2"
+                x-text="buttonLabel"
+                :disabled="loading"
+              ></button>
+            </div>
+          </div>
+
+          <div class="my-1 px-2 w-1/3 overflow-hidden bg-gray-200">
+            <pre class="text-left">
+query MyQuery {
+  devto_getArticles(
+    username: "<span x-text="formData.username"></span>", 
+    per_page: 3, 
+    page: 1) {
+      title
+      canonical_url
+    user {
+      website_url
+      username
+      name
+      twitter_username
+    }
+  }
+}            
+                  </pre>
+          </div>
+
+          <div class="my-1 px-6 w-1/3 overflow-hidden text-left">
+            <div class="grid grid-cols-3">
+              <div class="my-1 px-1 overflow-hidden">Article:</div>
+
+              <div class="col-span-2 my-1 px-1 overflow-hidden">
+                <a
+                  target="_blank"
+                  id="article1"
+                  x-bind:href="article1url"
+                  x-text="article1"
+                  class="hover:underline"
+                ></a>
+              </div>
+
+              <div class="my-1 px-1 overflow-hidden">User Website:</div>
+
+              <div class="col-span-2 my-1 px-1 overflow-hidden">
+                <a
+                  target="_blank"
+                  id="website_url"
+                  x-bind:href="website_url"
+                  x-text="website_url"
+                  class="hover:underline"
+                ></a>
+              </div>
+
+              <div class="my-1 px-1 overflow-hidden">User Twitter:</div>
+
+              <div class="col-span-2 my-1 px-1 overflow-hidden">
+                <a
+                  target="_blank"
+                  id="twitter_username"
+                  x-bind:href="'https://twitter.com/' + twitter_username"
+                  x-text="twitter_username"
+                  class="hover:underline"
+                >
+                </a>
+              </div>
+            </div>
           </div>
         </div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div class="m-4 p-2 shadow-lg bg-indigo-900 text-white rounded">
-          <p class="m-4">
-            StepZen executes this query when you hit 'submit'. ⇨
-          </p>
+      </form>
+    </section>
 
-          <p class="m-4">
-            It hits a pre-deployed StepZen endpoint with a live connection to
-            the DEV.to API. 
+    <section class="w-full px-8 text-gray-700 bg-white">
+      <div
+        class="text-center flex flex-wrap overflow-hidden items-center justify-between py-5 mx-auto md:flex-row max-w-7xl pt-5 pr-4 pb-4 pl-4"
+      >
+        <div class="my-1 px-1 w-full overflow-hidden">
+          <p class="text-xl font-bold">Under the Hood</p>
+        </div>
+      </div>
+      <div
+        class="text-center flex flex-wrap overflow-hidden items-center justify-between py-1 mx-auto md:flex-row max-w-7xl pr-4 pl-4"
+      >
+        <!-- sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20 -->
+        <div class="my-1 px-10 w-1/3 overflow-hidden">
+          <p>
+            Hit <strong>Submit</strong> and query our GraphQL API for the
+            lastest published article and the user's website and twitter handle.
           </p>
         </div>
-        <div class="w-3/4">
-          <pre class="text-indigo-800 text-base font-bold">
-        query MyQuery {
-          devto_getArticles(
-            username: <span x-text="formData.username"></span>, 
-            per_page: 3, 
-            page: 1) {
-              title
-              canonical_url
-            user {
-              website_url
-              username
-              name
-              twitter_username
-            }
-          }
-        }
-      
-            </pre>
+
+        <div class="my-1 px-10 w-1/3 overflow-hidden">
+          <p>
+            StepZen resolves the GraphQL query using a
+            <strong>custom directive, <em>@rest</em></strong
+            >, to call the DEV.to REST API.
+          </p>
+        </div>
+
+        <div class="my-1 px-10 w-1/3 overflow-hidden">
+          <p>
+            StepZen executes the REST API call against DEV.to and converts the
+            REST response to a GraphQL response to the query.
+          </p>
+        </div>
+      </div>
+    </section>
+    <!-- section 4 footer -->
+    <section class="w-full px-8 text-gray-700 bg-white">
+      <div
+        class="container flex flex-col flex-wrap items-center justify-between py-5 mx-auto md:flex-row max-w-7xl border-t"
+      >
+        <div>
+          <p
+            class="text-sm mt-0 mr-0 mb-0 ml-0 pt-0 pr-0 pb-0 pl-0 text-gray-600"
+            contenteditable="false"
+            disabled=""
+          >
+            © Copyright 2021 StepZen, Inc. All rights reserved.
+          </p>
         </div>
 
         <div
-          class="
-            w-3/4
-            mx-auto
-            rounded
-            p-4
-            m-2
-            text-indigo-900
-            grid grid-span-3
-            font-bold
-            shadow-lg
-            ml-20
-          "
+          class="space-y-2 lg:mb-0 sm:space-y-0 sm:space-x-5 sm:flex-row flex bg-top bg-cover flex-col items-center mt-0 mr-0 mb-3 ml-0 pt-0 pr-0 pb-0 pl-0"
         >
-          Article:
-        <a
-          id="article1"
-          x-bind:href="article1url"
-          class="text-gray-700 px-6 py-3 m-4 font-bold"
-          x-text="article1"
-        ></a>
-        User:
-  <div></div>
-  <div class="ml-10">
-            website:
-            <a
-            id="website_url"
-            x-bind:href="website_url"
-            class="
-              text-gray-700
-              px-6
-              py-3
-              flex
-              items-center
-              grid grid-span-3
-            "
-            x-text="website_url"
-          >
-          </a>
+          <div class="">
+            <a href="https://discord.gg/9k2VdPn2FR">
+              <i data-test="fa" class="fab fa-discord text-gray-500 fa-2x"></i>
+            </a>
+          </div>
+          <div class="">
+            <a href="https://github.com/stepzen-samples">
+              <i data-test="fa" class="fab fa-github text-gray-500 fa-2x"></i>
+            </a>
+          </div>
+          <div class="">
+            <a href="https://twitter.com/stepzen_dev">
+              <i data-test="fa" class="fab fa-twitter text-gray-500 fa-2x"></i>
+            </a>
+          </div>
         </div>
-        <div class="ml-10">
-            twitter: 
-        <a
-          id="twitter_username"
-          x-bind:href="'https://twitter.com/' + twitter_username"
-          class="text-gray-700 px-6 py-3 flex items-center"
-          x-text="twitter_username"
-        >
-        </a>
-        </div>
-        <!-- <a
-          id="article2"
-          x-bind:href="article2url"
-          class="text-gray-700 px-6 py-3 m-4 font-bold"
-          x-text="article2"
-        ></a>
-
-        <a
-          id="article3"
-          x-bind:href="article3url"
-          class="text-gray-700 px-6 py-3 m-4 font-bold"
-          x-text="article3"
-        ></a> -->
-
-        <div></div>
-        <div></div>
-        <div></div>
-      </form>
-    </div>
+      </div>
+    </section>
     <script>
       function idForm() {
         return {
           formData: {
-            username: '',
+            username: "",
           },
-          twitter_username: '',
-          website_url: '',
-          articles: '',
+          twitter_username: "",
+          website_url: "",
+          articles: "",
           loading: false,
-          article1: '',
-          article1url: '',
-          article2: '',
-          article2url: '',
-          article3: '',
-          article3url: '',
-          buttonLabel: 'Submit',
+          article1: "",
+          article1url: "",
+          article2: "",
+          article2url: "",
+          article3: "",
+          article3url: "",
+          buttonLabel: "Submit",
 
           submitData() {
-            this.buttonLabel = 'Submitting...'
-            this.loading = true
+            this.buttonLabel = "Submitting...";
+            this.loading = true;
             const body = JSON.stringify({
-              operationName: 'MyQuery',
+              operationName: "MyQuery",
               query: `query MyQuery ($username: String) {
   devto_getArticles(username: $username, per_page: 3, page: 1) {
     title
@@ -252,46 +322,46 @@
               variables: {
                 username: this.formData.username,
               },
-            })
-            fetch('https://mojave.stepzen.net/testing/netlifybuild/__graphql', {
-              method: 'POST',
+            });
+            fetch("https://mojave.stepzen.net/testing/netlifybuild/__graphql", {
+              method: "POST",
               headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
               },
               body: body,
             })
               .then((response) => response.json())
               .then((data) => {
                 if (data.data.devto_getArticles[0] === undefined) {
-                  this.twitter_username = `Error: undefined`
-                  this.website_url = `Error: undefined`
-                  this.article1 = `Error: undefined`
-                  this.article1url = `Error: undefined`
-                  this.article2 = `Error: undefined`
-                  this.article2url = `Error: undefined`
-                  this.article3 = `Error: undefined`
-                  this.article3url = `Error: undefined`
+                  this.twitter_username = `Error: undefined`;
+                  this.website_url = `Error: undefined`;
+                  this.article1 = `Error: undefined`;
+                  this.article1url = `Error: undefined`;
+                  this.article2 = `Error: undefined`;
+                  this.article2url = `Error: undefined`;
+                  this.article3 = `Error: undefined`;
+                  this.article3url = `Error: undefined`;
                 } else {
-                  this.twitter_username = `${data.data.devto_getArticles[0].user.twitter_username} `
-                  this.website_url = `${data.data.devto_getArticles[0].user.website_url}`
-                  this.article1 = `${data.data.devto_getArticles[0].title}`
-                  this.article1url = `${data.data.devto_getArticles[0].canonical_url}`
-                  this.article2 = `${data.data.devto_getArticles[1].title}`
-                  this.article2url = `${data.data.devto_getArticles[1].canonical_url}`
-                  this.article3 = `${data.data.devto_getArticles[2].title}`
-                  this.article3url = `${data.data.devto_getArticles[2].canonical_url}`
+                  this.twitter_username = `${data.data.devto_getArticles[0].user.twitter_username} `;
+                  this.website_url = `${data.data.devto_getArticles[0].user.website_url}`;
+                  this.article1 = `${data.data.devto_getArticles[0].title}`;
+                  this.article1url = `${data.data.devto_getArticles[0].canonical_url}`;
+                  this.article2 = `${data.data.devto_getArticles[1].title}`;
+                  this.article2url = `${data.data.devto_getArticles[1].canonical_url}`;
+                  this.article3 = `${data.data.devto_getArticles[2].title}`;
+                  this.article3url = `${data.data.devto_getArticles[2].canonical_url}`;
                 }
               })
               .catch((err) => {
-                console.log(err)
-                this.message = 'Ooops! Something went wrong!'
+                console.log(err);
+                this.message = "Ooops! Something went wrong!";
               })
               .finally(() => {
-                this.loading = false
-                this.buttonLabel = 'Submit'
-              })
+                this.loading = false;
+                this.buttonLabel = "Submit";
+              });
           },
-        }
+        };
       }
     </script>
   </body>
