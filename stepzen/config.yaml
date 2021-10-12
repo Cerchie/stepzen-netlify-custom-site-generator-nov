@@ -1,5 +1,0 @@
-ruleset:
-  - query: "[ALL]"
-    rules:
-      - predicate: true
-        action: allow

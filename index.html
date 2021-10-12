@@ -1,369 +1,50 @@
-<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>StepZen Sample</title>
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="https://stepzen.com/images/favicon/apple-touch-icon.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="https://stepzen.com/images/favicon/favicon-16x16.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="https://stepzen.com/images/favicon/favicon-32x32.png"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.2/tailwind.min.css"
-    />
     <script
-      src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"
       defer
+      src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"
     ></script>
-    <style>
-      button:disabled {
-        cursor: not-allowed;
-        opacity: 0.5;
-      }
-    </style>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-      integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
-      crossorigin="anonymous"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/brands.min.css"
-      integrity="sha512-apX8rFN/KxJW8rniQbkvzrshQ3KvyEH+4szT3Sno5svdr6E/CP0QE862yEeLBMUnCqLko8QaugGkzvWS7uNfFQ=="
-      crossorigin="anonymous"
-    />
-    <meta charset="UTF-8" />
-    <style>
-      .image-xl {
-        width: 150px;
-      }
-    </style>
   </head>
   <body>
-    <!-- Section 1 header -->
-    <section class="w-full px-8 text-gray-700 bg-white">
-      <div
-        class="flex flex-col items-center justify-between p-5 mx-auto md:flex-row max-w-7xl border-b"
-      >
-        <div class="flex-1">
-          <a href="https://stepzen.com" class="">
-            <img src="https://stepzen.com/images/logo.svg" class="image-xl" />
-          </a>
-        </div>
-        <div class="flex-1">
-          <p class="text-xl">
-            <strong>Dynamic data</strong> to power your app!
-          </p>
-        </div>
-        <div class="flex-1"></div>
-      </div>
-    </section>
-    <!-- Section 2 three steps section -->
-    <section class="w-full px-8 text-gray-700 bg-white">
-      <form
-        action="/"
-        method="POST"
-        x-data="idForm()"
-        @submit.prevent="submitData"
-      >
-        <div
-          class="text-center flex flex-wrap overflow-hidden items-start justify-between mx-auto md:flex-row max-w-7xl pt-16 pr-4 pb-4 pl-4"
-        >
-          <!-- sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20 -->
-          <div
-            class="my-1 px-1 w-1/3 overflow-hidden flex flex-row items-center justify-center"
-          >
-            <div
-              class="font-bold text-gray-700 rounded-full bg-gray-100 flex items-center justify-center font-mono"
-              style="height: 40px; width: 40px"
-            >
-              1
-            </div>
-            <div class="px-2">Enter a DEV.to username...</div>
-          </div>
-
-          <div
-            class="my-1 px-1 w-1/3 overflow-hidden flex flex-row items-center justify-center"
-          >
-            <div
-              class="font-bold text-gray-700 rounded-full bg-gray-100 flex items-center justify-center font-mono"
-              style="height: 40px; width: 40px"
-            >
-              2
-            </div>
-            <div class="px-2">The GraphQL query looks like...</div>
-          </div>
-
-          <div
-            class="my-1 px-1 w-1/3 overflow-hidden flex flex-row items-center justify-center"
-          >
-            <div
-              class="font-bold text-gray-700 rounded-full bg-gray-100 flex items-center justify-center font-mono"
-              style="height: 40px; width: 40px"
-            >
-              3
-            </div>
-            <div class="px-2">The response populates the markup...</div>
-          </div>
-
-          <div class="my-1 p-1 w-1/3 overflow-visible">
-            <label class="">Username:</label>
-            <input
-              type="text"
-              name="username"
-              class="border w-3/4 p-1"
-              x-model="formData.username"
-              placeholder="cassidoo"
-            />
-            <div class="p-1">
-              <button
-                class="bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white rounded w-1/3 p-2"
-                x-text="buttonLabel"
-                :disabled="loading"
-              ></button>
-            </div>
-          </div>
-
-          <div class="my-1 px-2 w-1/3 overflow-hidden bg-gray-200">
-            <pre class="text-left">
-query MyQuery {
-  devto_getArticles(
-    username: "<span x-text="formData.username"></span>", 
-    per_page: 3, 
-    page: 1) {
-      title
-      canonical_url
-    user {
-      website_url
-      username
-      name
-      twitter_username
-    }
+<div x-data="{
+  username: '',
+  github_token: '',
+  twitter_token: '',
+  get urlString() {
+    return `https://app.netlify.com/start/deploy?repository=https://github.com/stepzen-samples/custom-site-test#NEXT_DEVTO_USERNAME=${this.username}&NEXT_GITHUB_TOKEN=${this.github_token}&NEXT_TWITTER_BEARER_TOKEN=${this.twitter_token}`
   }
-}            
-                  </pre>
-          </div>
-
-          <div class="my-1 px-6 w-1/3 overflow-hidden text-left">
-            <div class="grid grid-cols-3">
-              <div class="my-1 px-1 overflow-hidden">Article:</div>
-
-              <div class="col-span-2 my-1 px-1 overflow-hidden">
-                <a
-                  target="_blank"
-                  id="article1"
-                  x-bind:href="article1url"
-                  x-text="article1"
-                  class="hover:underline"
-                ></a>
-              </div>
-
-              <div class="my-1 px-1 overflow-hidden">User Website:</div>
-
-              <div class="col-span-2 my-1 px-1 overflow-hidden">
-                <a
-                  target="_blank"
-                  id="website_url"
-                  x-bind:href="website_url"
-                  x-text="website_url"
-                  class="hover:underline"
-                ></a>
-              </div>
-
-              <div class="my-1 px-1 overflow-hidden">User Twitter:</div>
-
-              <div class="col-span-2 my-1 px-1 overflow-hidden">
-                <a
-                  target="_blank"
-                  id="twitter_username"
-                  x-bind:href="'https://twitter.com/' + twitter_username"
-                  x-text="twitter_username"
-                  class="hover:underline"
-                >
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </form>
-    </section>
-
-    <section class="w-full px-8 text-gray-700 bg-white">
-      <div
-        class="text-center flex flex-wrap overflow-hidden items-center justify-between py-5 mx-auto md:flex-row max-w-7xl pt-5 pr-4 pb-4 pl-4"
+}">    
+      <input
+        type="text"
+        name="username"
+        class="border w-3/4 p-1"
+        x-model="username"
+        placeholder="your devto username"
+      />
+    
+      <input
+        type="text"
+        name="github_token"
+        class="border w-3/4 p-1"
+        x-model="github_token"
+        placeholder="your github token"
+      />
+    
+      <input
+        type="text"
+        name="twitter_bearerToken"
+        class="border w-3/4 p-1"
+        x-model="twitter_token"
+        placeholder="your twitter bearer token"
+      />
+      <br/>
+      <a
+        x-bind:href="urlString"
+        class="text-gray-700 px-6 py-3 flex items-center"
       >
-        <div class="my-1 px-1 w-full overflow-hidden">
-          <p class="text-xl font-bold">Under the Hood</p>
-        </div>
-      </div>
-      <div
-        class="text-center flex flex-wrap overflow-hidden items-center justify-between py-1 mx-auto md:flex-row max-w-7xl pr-4 pl-4"
-      >
-        <!-- sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20 -->
-        <div class="my-1 px-10 w-1/3 overflow-hidden">
-          <p>
-            Hit <strong>Submit</strong> and query our GraphQL API for the
-            lastest published article and the user's website and twitter handle.
-          </p>
-        </div>
-
-        <div class="my-1 px-10 w-1/3 overflow-hidden">
-          <p>
-            StepZen resolves the GraphQL query using a
-            <strong>custom directive, <em>@rest</em></strong
-            >, to call the DEV.to REST API.
-          </p>
-        </div>
-
-        <div class="my-1 px-10 w-1/3 overflow-hidden">
-          <p>
-            StepZen executes the REST API call against DEV.to and converts the
-            REST response to a GraphQL response to the query.
-          </p>
-        </div>
-      </div>
-    </section>
-    <!-- section 4 footer -->
-    <section class="w-full px-8 text-gray-700 bg-white pt-12">
-      <div
-        class="container flex flex-col flex-wrap items-center justify-between py-5 mx-auto md:flex-row max-w-7xl border-t"
-      >
-        <div class="flex-1">
-          <p
-            class="text-sm mt-0 mr-0 mb-0 ml-0 pt-0 pr-0 pb-0 pl-0 text-gray-600"
-          >
-            © Copyright 2021 StepZen, Inc. All rights reserved.
-          </p>
-        </div>
-        <div class="flex-1">
-          <div class="flex flex-col justify-center items-center">
-            <div>StepZen is free for developers.</div>
-            <div>Start building today!</div>
-            <div>
-              <a
-                href="https://stepzen.com/signup"
-                class="inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap bg-blue-600 border border-transparent rounded-md shadow-sm hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600"
-              >
-                Sign up
-              </a>
-            </div>
-          </div>
-        </div>
-        <div
-          class="justify-end space-y-2 lg:mb-0 sm:space-y-0 sm:space-x-5 sm:flex-row flex bg-top bg-cover flex-1 items-center mt-0 mr-0 mb-3 ml-0 pt-0 pr-0 pb-0 pl-0"
-        >
-          <div class="">
-            <a href="https://discord.gg/9k2VdPn2FR">
-              <i data-test="fa" class="fab fa-discord text-gray-500 fa-2x"></i>
-            </a>
-          </div>
-          <div class="">
-            <a href="https://github.com/stepzen-samples">
-              <i data-test="fa" class="fab fa-github text-gray-500 fa-2x"></i>
-            </a>
-          </div>
-          <div class="">
-            <a href="https://twitter.com/stepzen_dev">
-              <i data-test="fa" class="fab fa-twitter text-gray-500 fa-2x"></i>
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-    <script>
-      function idForm() {
-        return {
-          formData: {
-            username: "",
-          },
-          twitter_username: "",
-          website_url: "",
-          articles: "",
-          loading: false,
-          article1: "",
-          article1url: "",
-          article2: "",
-          article2url: "",
-          article3: "",
-          article3url: "",
-          buttonLabel: "Submit",
-
-          submitData() {
-            this.buttonLabel = "Submitting...";
-            this.loading = true;
-            const body = JSON.stringify({
-              operationName: "MyQuery",
-              query: `query MyQuery ($username: String) {
-  devto_getArticles(username: $username, per_page: 3, page: 1) {
-    title
-    canonical_url
-    user {
-      name
-      twitter_username
-      username
-      website_url
-    }
-  }
-}`,
-              variables: {
-                username: this.formData.username,
-              },
-            });
-            fetch("https://mojave.stepzen.net/testing/netlifybuild/__graphql", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: body,
-            })
-              .then((response) => response.json())
-              .then((data) => {
-                if (data.data.devto_getArticles[0] === undefined) {
-                  this.twitter_username = `Error: undefined`;
-                  this.website_url = `Error: undefined`;
-                  this.article1 = `Error: undefined`;
-                  this.article1url = `Error: undefined`;
-                  this.article2 = `Error: undefined`;
-                  this.article2url = `Error: undefined`;
-                  this.article3 = `Error: undefined`;
-                  this.article3url = `Error: undefined`;
-                } else {
-                  this.twitter_username = `${data.data.devto_getArticles[0].user.twitter_username} `;
-                  this.website_url = `${data.data.devto_getArticles[0].user.website_url}`;
-                  this.article1 = `${data.data.devto_getArticles[0].title}`;
-                  this.article1url = `${data.data.devto_getArticles[0].canonical_url}`;
-                  this.article2 = `${data.data.devto_getArticles[1].title}`;
-                  this.article2url = `${data.data.devto_getArticles[1].canonical_url}`;
-                  this.article3 = `${data.data.devto_getArticles[2].title}`;
-                  this.article3url = `${data.data.devto_getArticles[2].canonical_url}`;
-                }
-              })
-              .catch((err) => {
-                console.log(err);
-                this.message = "Ooops! Something went wrong!";
-              })
-              .finally(() => {
-                this.loading = false;
-                this.buttonLabel = "Submit";
-              });
-          },
-        };
-      }
-    </script>
+      <span x-text="urlString"></span>
+      </a>
+    </div>
+  </div>
   </body>
 </html>

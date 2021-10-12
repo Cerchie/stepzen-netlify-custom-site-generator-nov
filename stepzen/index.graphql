@@ -1,3 +1,0 @@
-schema @sdl(files: ["devto.graphql"]) {
-  query: Query
-}
