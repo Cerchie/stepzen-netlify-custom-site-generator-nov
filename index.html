@@ -4,12 +4,26 @@
       defer
       src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"
     ></script>
-    <script
-    defer
-    src="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.17/tailwind.min.css"
-  ></script>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
   </head>
-  <body>
+
+  
+  <body class="bg-purple-200">
+    <div class="flex items-center justify-center h-screen">
+
+
+<div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+  <a href="https://stepzen.com/" alt="external link to StepZen's homepage" class="mb-4"><img src="light-blue.png" class="w-10 h-10"></a>
+  <div  class="m-3">
+   
+    <p class="m-1">
+  Welcome to StepZen's custom site generator, built with Netlify!
+    </p>
+    <p class="m-1">
+    Here's an <a href="https://heuristic-johnson-4976f8.netlify.app/" alt="external link to sample generated site" class="ml-1 mr-1 text-purple-500"> example </a> of the site you'll deploy.
+    To learn more about this site,<a href="https://github.com/stepzen-samples/stepzen-netlify-custom-site-generator" alt="external link to github repo" class="ml-1 mr-1 text-purple-500">visit our README.</a>
+  </p>
+  </div>
 <div x-data="{
   username: '',
   github_token: '',
@@ -18,26 +32,33 @@
     return `https://app.netlify.com/start/deploy?repository=https://github.com/stepzen-samples/custom-site-test#NEXT_DEVTO_USERNAME=${this.username}&NEXT_GITHUB_TOKEN=${this.github_token}&NEXT_TWITTER_BEARER_TOKEN=${this.twitter_token}`
   }
 }">    
+<label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+  Username
+</label>
       <input
         type="text"
         name="username"
-        class="border w-3/4 p-1"
+        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
         x-model="username"
         placeholder="your devto username"
       />
-    
+      <label class="block text-gray-700 text-sm font-bold mb-2 mt-2" for="username">
+        Github token
+      </label>
       <input
         type="text"
         name="github_token"
-        class="border w-3/4 p-1"
+        class="shadow appearance-none border border-purple-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="******************"
         x-model="github_token"
         placeholder="your github token"
       />
-    
+      <label class="block text-gray-700 text-sm font-bold mb-2 mt-2" for="username">
+        Twitter token (no "Bearer")
+      </label>
       <input
         type="text"
         name="twitter_bearerToken"
-        class="border w-3/4 p-1"
+        class="shadow appearance-none border border-purple-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="******************"
         x-model="twitter_token"
         placeholder="your twitter bearer token"
       />
@@ -46,9 +67,13 @@
         x-bind:href="urlString"
         class="text-gray-700 px-6 py-3 flex items-center"
       >
-      <span x-text="urlString"></span>
+      <button x-tdata="urlString"
+      class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Deploy to Netlify</button>
       </a>
     </div>
   </div>
+</div>
+</div>
+
   </body>
 </html>
